@@ -36,31 +36,13 @@ import axios from './axios'
  */
 
 // 单独导出
-export const login = () => {
-    return axios({
-        url: '/login',
-        method: 'post'
-    })
-}
-
-export const getUser = () => {
-    return axios({
-        url: '/user',
-        method: 'get'
-    })
-}
-
-export const getMenu = data => {
-    return axios({
-        url: '/menu',
-        method: 'post',
-        data
-    })
-}
+import * as login from './moudules/login'
+import * as user from './moudules/user'
+import * as menu from './moudules/menu.js'
 
 // 默认全部导出
 export default {
     login,
-    getUser,
-    getMenu
+    user,
+    menu
 }

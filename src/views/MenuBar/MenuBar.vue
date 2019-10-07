@@ -5,7 +5,7 @@
         <img :src="this.logo" /> <div>{{isCollapse?'':sysName}}</div>
     </div>
     <!-- 导航菜单 -->
-    <el-menu default-active="1-1" class="menu-bar-width" @open="handleopen" @close="handleclose" @select="handleselect" :collapse="isCollapse">
+    <!-- <el-menu default-active="1-1" class="menu-bar-width" @open="handleopen" @close="handleclose" @select="handleselect" :collapse="isCollapse">
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
@@ -31,11 +31,18 @@
         <i class="el-icon-setting"></i>
         <span slot="title">导航四</span>
       </el-menu-item>
+    </el-menu> -->
+    <!-- 导航菜单 -->
+    <el-menu ref="navmenu" default-active="1" class="menu-bar-width" @open="handleopen" @close="handleclose" @select="handleselect">
+      <!-- 导航菜单树组件，动态加载菜单 -->
+      <menu-tree v-for="item in menuTree" :key="item.id" :menu="item"></menu-tree>
     </el-menu>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import MenuTree from "@/components/MenuTree"
 export default {
   data() {
     return {
@@ -43,6 +50,9 @@ export default {
       sysName: "",
       logo: "",
     };
+  },
+  components:{
+    MenuTree
   },
   methods: {
     handleopen() {
@@ -53,11 +63,29 @@ export default {
     },
     handleselect(a, b) {
       console.log('handleselect');
+    },
+    findMenuTree(){
+      this.$api.menu.findMenuTree()
+      .then((res)=>{
+        this.$store.commit('setMenuTree',res.data)
+      })
+      .catch((err)=>{
+        alert(err)
+      })
     }
+  },
+  computed:{
+    ...mapState({
+      // appName: state => state.app.appName,
+      menuTree: state => state.menu.menuTree
+    })
   },
   mounted() {
     this.sysName = "I like Kitty";
     this.logo = require("@/assets/logo.png");
+
+    this.findMenuTree();
+
   }
 };
 </script>
