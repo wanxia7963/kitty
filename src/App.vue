@@ -17,6 +17,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+.el-submenu__title:hover,.el-menu-item:focus, .el-menu-item:hover,.el-menu-item:active {
+  background-color: #49a0f9 !important;
+}
+.el-submenu .el-menu-item{
+  background-color: #353646
+}
+.el-menu-item.is-active{
+  background: #49a0f9
 }
 </style>

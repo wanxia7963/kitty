@@ -1,91 +1,220 @@
 <template>
-  <el-form :model="loginForm" :rules="fieldRules" ref="loginForm" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-    <h3 class="title">系统登录</h3>
-    <el-form-item prop="account">
-      <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="账号"></el-input>
-    </el-form-item>
-    <el-form-item prop="password">
-      <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="密码"></el-input>
-    </el-form-item>
-    <!-- <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox> -->
-    <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:48%;" @click.native.prevent="reset">重 置</el-button>
-      <el-button type="primary" style="width:48%;" @click.native.prevent="login" :loading="logining">登 录</el-button>
-    </el-form-item>
-  </el-form>
+    <div class="loginPage">
+<!--        <img src="/img/bg/登录背景.png" class="backgroudImg">-->
+        <div class="loginTitle">
+            <p>提案在线系统</p>
+        </div>
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>用户登陆</span>
+            </div>
+            <el-form label-width="80px" ref="form" :model="form" :rules="rules">
+                <el-form-item prop="username">
+                    <el-input
+                            type="text"
+                            prefix-icon="el-icon-my-username"
+                            auto-complete="off"
+                            placeholder="请输入登陆ID"
+                            v-model="form.account">
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input
+                            type="password"
+                            prefix-icon="el-icon-my-password"
+                            auto-complete="off"
+                            placeholder="请输入密码"
+                            v-model="form.password">
+                    </el-input>
+                </el-form-item>
+                <el-form-item>
+                    <div class="rember">
+                        <div>
+                            <el-checkbox v-model="checked" checked>记住密码</el-checkbox>
+                            <a style="margin-left: 20px">忘记密码？</a>
+                        </div>
+                        <div>
+                            <a style="margin-right: 20px">APP下载</a>
+                        </div>
+                    </div>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary"
+                               class="login-submit"
+                               v-on:click="login">登陆
+                    </el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
+
+    </div>
 </template>
+
 <script>
-var _self
+import qs from 'qs'
 import mock from '@/mock/index.js';
 import Cookies from "js-cookie";
-import router from '@/router'
-export default {
-    name: 'Login',
-    data() {
-      return {
-        logining: false,
-        loginForm: {
-          account: 'admin',
-          password: '123456'
-        },
-        fieldRules: {
-          account: [
-            { required: true, message: '请输入账号', trigger: 'blur' },
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
-          ]
-        },
-        checked: true
-      }
-    },
-    methods:{
-        // login(){
-        //     console.log(this)
-        //     this.$api.login()
-        //     .then(res =>{
-        //         alert(res.data.token)
-        //         Cookies.set('token',res.data.token);
-        //         router.push('/')
-        //     }).catch(err=>{
-        //         alert(err)
-        //     })
-        // }
-        login() {
-            let userInfo = {account:this.loginForm.account, password:this.loginForm.password}
-            this.$api.login.login(JSON.stringify(userInfo)).then((res) => {
-                Cookies.set('token', res.data.token) // 放置token到Cookie
-                sessionStorage.setItem('user', userInfo.account) // 保存用户到本地会话
-                this.$router.push('/')  // 登录成功，跳转到主页
-            }).catch(function(res) {
-                alert(res);
-            });
-      },
-       reset() {
-        this.$refs.loginForm.resetFields();
-      }
+    export default {
+        name: "login",
+        data() {
+            return {
+                logining: false,
+                form: {
+                    account: '',
+                    password: ''
+                },
+                rules:{
+                    account: [{required: true, message: '请输入你的账户', trigger: 'blur'}],
+                    password: [{required: true, message: '请输入你的密码', trigger: 'blur'}]
+                },
+                checked:true
+            }
+        },methods:{
+            login(){
+              let userInfo =  qs.stringify({username:this.form.account, password:this.form.password})
+                this.$refs.form.validate(valid=>{
+                    if(valid){
+                        this.logining = true;
+                        this.$api.login.login(userInfo).then((res) => {
+                            Cookies.set('token', res.data.token) // 放置token到Cookie
+                            sessionStorage.setItem('user', userInfo.account) // 保存用户到本地会话
+                            this.$router.push('/')  // 登录成功，跳转到主页
+                        }).catch(function(res) {
+                            alert(res);
+                        });
+                      
+                        // const loading = this.$loading({
+                        //     lock: true,
+                        //     text: '登录中,请稍后。。。',
+                        //     spinner: "el-icon-loading"
+                        // });
+                        // this.$store.dispatch('LoginByUsername',this.form)
+                        //     .then(()=>{
+                        //         this.$router.push({path:'/'});
+                        //         loading.close();
+                        //     }).catch(() => {
+                        //     loading.close();
+                        //     });
+                    }
+                })
+            }
+
+        }
     }
-}
 </script>
-<style lang="scss" scoped>
-  .login-container {
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: 180px auto;
-    width: 350px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-    .title {
-      margin: 0px auto 40px auto;
-      text-align: center;
-      color: #505458;
-    }
-    .remember {
-      margin: 0px 0px 35px 0px;
+
+<style lang="scss">
+.loginPage{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: url("../assets/bg/登录背景.png") 0 bottom repeat-x;
+  .loginTitle p{
+    color: #49a0f9;
+    font-size: 40px;
+    letter-spacing: 7px;
+  }
+}
+
+.el-card__header {
+  border-bottom: none;
+}
+.el-card__body{
+  padding: 20px 40px 0;
+}
+.el-form-item__content {
+  margin-left: 0 !important;
+}
+
+.clearfix {
+  text-align: center;
+  span {
+    letter-spacing: 6px;
+    font-size: 26px;
+    color: #49a0f9;
+  }
+}
+
+.el-card {
+  width: 610px;
+  height: 423px;
+  margin: 0 auto;
+  background: url("../assets/bg/登录背景框.png") 0 bottom repeat-x;
+  border: none;
+}
+
+.el-input__inner {
+  height: 55px;
+  border: 3px solid #1f70ac;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding-left: 55px !important;
+  color: #cccccc;
+  font-size: 18px;
+}
+.el-input__inner:focus,.el-input__inner:hover{
+  border-color: #1f70ac;
+}
+
+.el-input__inner::placeholder{
+  font-size: 18px;
+  color: #cccccc;
+  letter-spacing: 5px;
+}
+
+.el-button--primary {
+  width: 100%;
+  height: 55px;
+  background-color: #49a0f9;
+  font-size: 26px;
+  letter-spacing: 6px;
+}
+.el-button--primary:hover, .el-button--primary:focus{
+  background: #49a0f9;
+  border-color: #49a0f9;
+}
+.el-icon-my-username{
+  background: url(../assets/icons/用户名.png) center no-repeat;
+  background-size: cover;
+  width: 22px;
+  height: 24px;
+}
+.el-icon-my-password{
+  background: url(../assets/icons/密码.png) center no-repeat;
+  background-size: cover;
+  width: 22px;
+  height: 24px;
+}
+.el-input__prefix{
+  left: 20px;
+  top: 15px;
+}
+.rember {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .el-checkbox{
+    font-size: 18px;
+    color: white;
+    .el-checkbox__label{
+      font-size: 18px;
+      letter-spacing: 2px;
     }
   }
+  .el-checkbox__input.is-checked + .el-checkbox__label{
+    color: #49a0f9;
+  }
+  .el-checkbox__input.is-checked .el-checkbox__inner{
+    color: #49a0f9;
+    background-color:#49a0f9;
+  }
+  a{
+    font-size: 18px;
+    color: white;
+    letter-spacing: 2px;
+  }
+}
+
 </style>

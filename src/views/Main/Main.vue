@@ -32,7 +32,7 @@ export default {
   position: absolute;
   top: 60px;
   bottom: 0px;
-  left: 200px;
+  left: 300px;
   right: 0px;
   .breadcrumb {
     padding: 10px;  

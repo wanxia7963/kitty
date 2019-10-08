@@ -1,27 +1,39 @@
 <template> 
   <div class="container" >
-    
     <!-- 导航菜单 -->
     <span class="nav-bar">
-      <el-menu :default-active="activeIndex" class="el-menu-demo" text-color="#fff"
+      <!-- <el-menu :default-active="activeIndex" class="el-menu-demo" text-color="#fff"
           active-text-color="#ffd04b" mode="horizontal" @select="selectNavBar()">
-        <el-menu-item index="1" @click="$router.push('/')">首页</el-menu-item>
-        <el-menu-item index="2">消息中心</el-menu-item>
-        <el-menu-item index="3">订单管理</el-menu-item>
-      </el-menu>
+        <el-menu-item index="1" @click="$router.push('/')">APP下载</el-menu-item>
+        <el-menu-item index="2">修改密码</el-menu-item>
+        <el-menu-item index="3">{{username}}</el-menu-item>
+        <el-menu-item index="4">退出登录</el-menu-item>
+      </el-menu> -->
+      <div class="setStyle">
+        <div class="item"><img src="" alt=""><span>APP下载</span></div>
+        <div class="item"><img src="" alt=""><span>修改密码</span></div>
+        <div class="item">
+          <img src="" alt="">
+          <span>政协提案录入开关</span> 
+          <el-switch  v-model="value"  active-color="#49a0f9"  inactive-color="#ccc"></el-switch>
+          </div>
+      </div>
     </span>
     <span class="tool-bar">
       <!-- 主题切换 -->
-      
+      <div class="setStyle">
+        <div class="item"><img src="" alt=""><span>{{username}}</span></div>
+        <div class="item" @click="logout"><img src="" alt=""><span >退出登陆</span></div>
+      </div>
       <!-- 用户信息 -->
-      <el-dropdown class="user-info-dropdown" trigger="hover">
+      <!-- <el-dropdown class="user-info-dropdown" trigger="hover">
         <span class="el-dropdown-link"><img :src="this.userAvatar" /> {{username}}</span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>我的消息</el-dropdown-item>
           <el-dropdown-item>设置</el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
     </span>
   </div>
 </template>
@@ -33,28 +45,17 @@ export default {
   
   data() {
     return {
-      isCollapse: false,
-      username: "Louis",
+      username: "超级管理员",
       userAvatar: "",
-      activeIndex: '1'
+      value: true
     };
   },
   methods: {
     selectNavBar(key, keyPath) {
       console.log(key, keyPath)
     },
-    // 语言切换
-    handleCommand(command) {
-      let array = command.split(':')
-      let lang = array[0] === '' ? 'zh_cn' : array[0]
-      let label = array[1]
-      document.getElementById("language").innerHTML = label
-      this.$i18n.locale = lang
-    },
-    //折叠导航栏
-    collapse: function() {
-      this.$store.commit('collapse')
-    },
+    
+    
     //退出登录
     logout: function() {
       var _this = this;
@@ -68,6 +69,7 @@ export default {
       })
       .catch(() => {});
     }
+
   },
   mounted() {
     this.sysName = "I like Kitty";
@@ -83,7 +85,7 @@ export default {
 <style scoped lang="scss">
 .container {
   position: absolute;
-  left: 200px;
+  left: 300px;
   right: 0px;
   height: 60px;
   line-height: 60px;
@@ -97,13 +99,22 @@ export default {
     border-right-width: 1px;
     border-right-style: solid;
     color: white;
-    background: #504e6180;
+    background: #ffff;
   }
   .nav-bar {
-    margin-left: auto;
+    margin-left: 50px;
     float: left;
-    .el-menu {
-      background: #504e6180;
+  }
+  .setStyle{
+    display: flex;
+    .item{
+      border-left: 1px solid #d2d1d1;
+      width: 180px;
+      height: 100%;
+      text-align: center;
+      font-size: 16px;
+      color: #212121;
+      font-weight: normal;
     }
   }
   .tool-bar {

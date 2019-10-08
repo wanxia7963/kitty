@@ -1,13 +1,15 @@
 export default {
     state:{
-        appName:'i like Kitty',
+        token:''
        
     },
     getters:{
         
     },
     mutations:{
-       
+        SET_TOKEN: (state, token) => {
+            state.token = token
+          },
     },
     actions:{
 

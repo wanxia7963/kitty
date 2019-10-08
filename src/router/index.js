@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import Login from '@/views/Login'
 import NotFound from '@/views/404'
-import Intro from '@/views/Intro'
+import Intro from '@/views/SysMng/Intro'
 import User from '@/views/SysMng/User'
 import Dept from '@/views/SysMng/Dept'
 import Role from '@/views/SysMng/Role'
@@ -57,6 +57,8 @@ router.beforeEach((to, from, next) => {
   }
 
 })
+
+
 
 export default router
 

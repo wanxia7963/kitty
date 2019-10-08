@@ -1,8 +1,8 @@
 <template>
-    <div class="menu-bar-container">
+    <div ref="nav" class="menu-bar-container">
     <!-- logo -->
     <div class="logo menu-bar-width" >
-        <img :src="this.logo" /> <div>{{isCollapse?'':sysName}}</div>
+         <div>西区政协提案在线系统</div>
     </div>
     <!-- 导航菜单 -->
     <!-- <el-menu default-active="1-1" class="menu-bar-width" @open="handleopen" @close="handleclose" @select="handleselect" :collapse="isCollapse">
@@ -33,7 +33,7 @@
       </el-menu-item>
     </el-menu> -->
     <!-- 导航菜单 -->
-    <el-menu ref="navmenu" default-active="1" class="menu-bar-width" @open="handleopen" @close="handleclose" @select="handleselect">
+    <el-menu ref="navmenu" default-active="1" text-color="#fff" active-text-color="#ffffff" class="menu-bar-width barcolor" @open="handleopen" @close="handleclose" @select="handleselect">
       <!-- 导航菜单树组件，动态加载菜单 -->
       <menu-tree v-for="item in menuTree" :key="item.id" :menu="item"></menu-tree>
     </el-menu>
@@ -49,6 +49,7 @@ export default {
       isCollapse: false,
       sysName: "",
       logo: "",
+      winHeight:window.innerHeight,
     };
   },
   components:{
@@ -81,47 +82,56 @@ export default {
     })
   },
   mounted() {
-    this.sysName = "I like Kitty";
-    this.logo = require("@/assets/logo.png");
+    console.log(this)
+    const that = this
+     window.onresize = () => {
+        return (() => {
+        that.winHeight = window.innerHeight
 
+      })()
+
+      }
+    this.$refs.nav.style.height=this.winHeight+'px'
     this.findMenuTree();
 
+  },
+  watch:{
+    winHeight(val){
+      this.winHeight =val
+      this.$refs.nav.style.height=this.winHeight+'px'
+  }
   }
 };
 </script>
 
 <style scoped lang="scss">
 .menu-bar-container {
+  width: 300px;
+  background: #353646;
   .el-menu {
-    position:absolute;
     top: 60px;
     bottom: 0px;
     text-align: left;
+    background-color: #21212c
   }
   .logo {
     position:absolute;
     top: 0px;
     height: 60px;   
     line-height: 60px;
-    background: #4b5f6e;
-    img {
-        width: 40px;
-        height: 40px;
-        border-radius: 0px;
-        margin: 10px 10px 10px 10px;
-        float: left;
-    }
+    background: #353646;
     div {
       font-size: 22px;
-      color: white;
-      text-align: left;
+      color: #49a0f9;
+      text-align: center;
     }
   }
   .menu-bar-width {
-    width: 200px;
+    width: 300px;
   }
   .menu-bar-collapse-width {
     width: 65px;
   }
+ 
 }
 </style>
