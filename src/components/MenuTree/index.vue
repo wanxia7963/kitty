@@ -27,6 +27,9 @@
         this.$router.push("/")
         this.$router.push(menu.url)
       }
+    },
+    mounted(){
+      console.log(this.menu)
     }
   }
 </script>

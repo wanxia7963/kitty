@@ -1,45 +1,30 @@
 <template> 
   <div class="container" >
     <!-- 导航菜单 -->
-    <span class="nav-bar">
-      <!-- <el-menu :default-active="activeIndex" class="el-menu-demo" text-color="#fff"
-          active-text-color="#ffd04b" mode="horizontal" @select="selectNavBar()">
-        <el-menu-item index="1" @click="$router.push('/')">APP下载</el-menu-item>
-        <el-menu-item index="2">修改密码</el-menu-item>
-        <el-menu-item index="3">{{username}}</el-menu-item>
-        <el-menu-item index="4">退出登录</el-menu-item>
-      </el-menu> -->
-      <div class="setStyle">
-        <div class="item"><img src="" alt=""><span>APP下载</span></div>
-        <div class="item"><img src="" alt=""><span>修改密码</span></div>
-        <div class="item">
-          <img src="" alt="">
-          <span>政协提案录入开关</span> 
-          <el-switch  v-model="value"  active-color="#49a0f9"  inactive-color="#ccc"></el-switch>
-          </div>
-      </div>
-    </span>
-    <span class="tool-bar">
-      <!-- 主题切换 -->
-      <div class="setStyle">
-        <div class="item"><img src="" alt=""><span>{{username}}</span></div>
-        <div class="item" @click="logout"><img src="" alt=""><span >退出登陆</span></div>
-      </div>
-      <!-- 用户信息 -->
-      <!-- <el-dropdown class="user-info-dropdown" trigger="hover">
-        <span class="el-dropdown-link"><img :src="this.userAvatar" /> {{username}}</span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>我的消息</el-dropdown-item>
-          <el-dropdown-item>设置</el-dropdown-item>
-          <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown> -->
-    </span>
+   <div class="nav">
+      <span class="nav-bar">
+        <div class="setStyle">
+          <div class="item"><img src="" alt=""><span>APP下载</span></div>
+          <div class="item"><img src="" alt=""><span>修改密码</span></div>
+          <div class="item">
+            <img src="" alt="">
+            <span>政协提案录入开关</span> 
+            <el-switch  v-model="value"  active-color="#49a0f9"  inactive-color="#ccc"></el-switch>
+            </div>
+        </div>
+      </span>
+      <span class="tool-bar">
+        <div class="setStyle">
+          <div class="item"><img src="" alt=""><span>{{username}}</span></div>
+          <div class="item" @click="logout"><img src="" alt=""><span >退出登陆</span></div>
+        </div>
+      </span>
+   </div>
   </div>
 </template>
 
 <script>
-import mock from "@/mock/index.js";
+import mock from "@/mock/index";
 
 export default {
   
@@ -67,7 +52,7 @@ export default {
         this.$router.push
         ("/login");
       })
-      .catch(() => {});
+      .catch(() => {})
     }
 
   },
@@ -89,6 +74,11 @@ export default {
   right: 0px;
   height: 60px;
   line-height: 60px;
+  .nav{
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 4px 4px 0px rgba(169, 169, 169, 0.25);
+  }
   .collapse-switcher {
     width: 40px;
     float: left;

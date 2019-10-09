@@ -11,9 +11,7 @@ export default function $axios(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({
       baseURL: config.baseURL,
-      headers: {},
-      transformResponse: [function (data) {
-      }]
+      headers: config.headers
     })
 
     // request 拦截器
@@ -25,7 +23,7 @@ export default function $axios(options) {
         // console.log('准备发送请求...')
         // 2. 带上token
         if (token) {
-          config.headers.accessToken = token
+          config.headers.token = token
         } else {
           // 重定向到登录页面
           router.push('/login')

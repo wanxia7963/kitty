@@ -13,7 +13,7 @@
                 </div>
         </div>
 
-        <table class="cal-table">
+        <table class="cal-table calWidth">
             <tr v-for="(item,itemIndex) in calendar.dayList" :key='itemIndex'>
                 <td v-for="(key) in item" :key='key.date' :class="{'bg-grey':key.disable}">
                     <div class="cal-item" :class="{'cal-active':calendar.isDay == key.date}">
@@ -162,11 +162,11 @@ export default{
 .YM-text span{display:inline-block;margin:-10px 0 0 10px;width:26px;height:26px;border-radius:3px;background:#f17437;line-height:26px;color:#fff; font-size: 14px;}
 .cal-left,.cal-right{font-size: 22px; width: 20px; text-align: center;}
 .cal-left:hover > i,.cal-right:hover > i{color:#3583f7};
-.cal-table{width: 100%; border: 1px solid #eee; text-align: center; border-collapse: collapse;}
-
+.cal-table{width: 100% !important; border: 1px solid #eee; text-align: center; border-collapse: collapse;}
+.calWidth{width: 100%}
 .cal-table td{ cursor: pointer; vertical-align: top;}
 .cal-table td:hover{background: #f5f5ed;}
-.cal-item{width: 49px;min-height: 30;height: 30px;line-height: 30px}
+.cal-item{min-height: 30;height: 30px;line-height: 30px}
 .cal-item > span{display:block;width: 30px; height: 30px;border-radius: 50%; margin:0 auto; font-size: 16px;font-weight: 600;letter-spacing: 1px;}
 .cal-active > span{ color:#fff!important; background: #3583f7;}
 .cal-time-list{font-size: 12px; text-align: left;}

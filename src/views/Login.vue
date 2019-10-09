@@ -72,31 +72,19 @@ import Cookies from "js-cookie";
         },methods:{
             login(){
               let userInfo =  qs.stringify({username:this.form.account, password:this.form.password})
-                this.$refs.form.validate(valid=>{
-                    if(valid){
-                        this.logining = true;
-                        this.$api.login.login(userInfo).then((res) => {
-                            Cookies.set('token', res.data.token) // 放置token到Cookie
-                            sessionStorage.setItem('user', userInfo.account) // 保存用户到本地会话
-                            this.$router.push('/')  // 登录成功，跳转到主页
-                        }).catch(function(res) {
-                            alert(res);
-                        });
-                      
-                        // const loading = this.$loading({
-                        //     lock: true,
-                        //     text: '登录中,请稍后。。。',
-                        //     spinner: "el-icon-loading"
-                        // });
-                        // this.$store.dispatch('LoginByUsername',this.form)
-                        //     .then(()=>{
-                        //         this.$router.push({path:'/'});
-                        //         loading.close();
-                        //     }).catch(() => {
-                        //     loading.close();
-                        //     });
-                    }
-                })
+              // let userInfo =  {username:this.form.account, password:this.form.password}
+              this.$refs.form.validate(valid=>{
+                  if(valid){
+                      this.logining = true;
+                      this.$api.login.login(userInfo).then((res) => {
+                          Cookies.set('token', res.data.token) // 放置token到Cookie
+                          sessionStorage.setItem('user', userInfo.account) // 保存用户到本地会话
+                          this.$router.push('/')  // 登录成功，跳转到主页
+                      }).catch(function(res) {
+                          alert(res);
+                      });
+                  }
+              })
             }
 
         }

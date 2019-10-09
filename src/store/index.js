@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import vuex from 'vuex'
-import AppStore from './modules/AppStore';
 
 Vue.use(vuex);
 
 
 import menu from './modules/menu'
+import app from './modules/Application.js';
 
 const store = new vuex.Store({
    modules:{
-       app:AppStore,
+       app:app,
        menu: menu
    }
 })

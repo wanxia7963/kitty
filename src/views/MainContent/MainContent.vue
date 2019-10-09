@@ -1,6 +1,6 @@
 <template>
   <div class="container" :class="$store.state.collapse?'menu-bar-collapse-width':'menu-bar-width'">
-    <BreadCrumb></BreadCrumb>
+    <bread-crumb></bread-crumb>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import BreadCrumb from "@/components/BreadCrumb"
+import breadCrumb from "@/components/BreadCrumb"
 export default {
     name:'mains',
     components:{
-        BreadCrumb
+        breadCrumb
     },
     data() {
         return {
@@ -30,16 +30,13 @@ export default {
 <style scoped lang="scss">
 .container {
   position: absolute;
-  top: 60px;
+  top: 64px;
   bottom: 0px;
   left: 300px;
   right: 0px;
+  background: #f1f4f6;
   .breadcrumb {
-    padding: 10px;  
-    border-color: rgba(38, 86, 114, 0.2);
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    background: rgba(138, 158, 170, 0.2);
+    padding-left: 30px; 
   }
 }
 </style>

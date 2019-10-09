@@ -1,24 +1,24 @@
 <template>
 	 <div class="container">
       <!-- 导航菜单栏 -->
-      <MenuBar></MenuBar>
+       <nav-bar></nav-bar>
       <!-- 头部区域 -->
-      <HeadBar></HeadBar>
+      <head-bar></head-bar>
       <!-- 主内容区域 -->
-      <Main></Main>
+      <Main-content></Main-content>
   </div>
 </template>
 
 <script>
 import HeadBar from "./HeaderBar/HeaderBar"
-import MenuBar from "./MenuBar/MenuBar"
-import Main from "./Main/Main" 
+import NavBar from "./NavBar/NavBar"
+import MainContent from "./MainContent/MainContent" 
 export default {
   name: "Home",
   components:{
     HeadBar,
-    MenuBar,
-    Main
+    NavBar,
+    MainContent
   }
 };
 </script>
