@@ -3,7 +3,9 @@ export default {
     // 基础url前缀
     baseURL: 'http://localhost:8080/',
     // 请求头信息
-    headers: {},
+    headers: { 
+      'Content-Type': 'application/json;charset=UTF-8'
+     },
     // 参数
     data: {},
     // 设置超时时间

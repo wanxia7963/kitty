@@ -12,6 +12,7 @@
                 <el-form-item prop="username">
                     <el-input
                             type="text"
+                            class="userInput"
                             prefix-icon="el-icon-my-username"
                             auto-complete="off"
                             placeholder="请输入登陆ID"
@@ -21,6 +22,7 @@
                 <el-form-item prop="password">
                     <el-input
                             type="password"
+                            class="passInput"
                             prefix-icon="el-icon-my-password"
                             auto-complete="off"
                             placeholder="请输入密码"
@@ -40,7 +42,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary"
-                               class="login-submit"
+                               class="login-submit login"
                                v-on:click="login">登陆
                     </el-button>
                 </el-form-item>
@@ -71,13 +73,14 @@ import Cookies from "js-cookie";
             }
         },methods:{
             login(){
-              let userInfo =  qs.stringify({username:this.form.account, password:this.form.password})
-              // let userInfo =  {username:this.form.account, password:this.form.password}
+              // let userInfo =  qs.stringify({username:this.form.account, password:this.form.password})
+              let userInfo =  {username:this.form.account, password:this.form.password}
               this.$refs.form.validate(valid=>{
                   if(valid){
                       this.logining = true;
                       this.$api.login.login(userInfo).then((res) => {
-                          Cookies.set('token', res.data.token) // 放置token到Cookie
+                        console.log('token 1',res.data)
+                          Cookies.set('token', res.data) // 放置token到Cookie
                           sessionStorage.setItem('user', userInfo.account) // 保存用户到本地会话
                           this.$router.push('/')  // 登录成功，跳转到主页
                       }).catch(function(res) {
@@ -134,7 +137,7 @@ import Cookies from "js-cookie";
   border: none;
 }
 
-.el-input__inner {
+.userInput .el-input__inner,.passInput .el-input__inner {
   height: 55px;
   border: 3px solid #1f70ac;
   background-color: rgba(255, 255, 255, 0.1);
@@ -142,24 +145,24 @@ import Cookies from "js-cookie";
   color: #cccccc;
   font-size: 18px;
 }
-.el-input__inner:focus,.el-input__inner:hover{
+.userInput .el-input__inner:focus,.userInput .el-input__inner:hover,.passInput .el-input__inner:focus,.passInput .el-input__inner:hover{
   border-color: #1f70ac;
 }
 
-.el-input__inner::placeholder{
+.userInput .el-input__inner::placeholder,.passInput .el-input__inner::placeholder{
   font-size: 18px;
   color: #cccccc;
   letter-spacing: 5px;
 }
 
-.el-button--primary {
+.login {
   width: 100%;
   height: 55px;
   background-color: #49a0f9;
   font-size: 26px;
   letter-spacing: 6px;
 }
-.el-button--primary:hover, .el-button--primary:focus{
+.login:hover, .login:focus{
   background: #49a0f9;
   border-color: #49a0f9;
 }

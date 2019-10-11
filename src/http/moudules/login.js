@@ -2,7 +2,8 @@ import axios from '../axios'
 //登录
 export const login = data => {
     return axios({
-        url: '/apis/login/form',
+        // url: '/apis/login/form',
+        url: '/login',
         method: 'post',
         data
     })

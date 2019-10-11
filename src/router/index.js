@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import Login from '@/views/Login'
 import NotFound from '@/views/Error/404'
-import Intro from '@/views/SysMng/Intro'
+import Intro from '@/views/Intro'
 import api from '@/http/api'
 import store from '@/store'
 import { isURL } from '@/utils/validate'
@@ -36,6 +36,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // to and from are both route objects. must call `next`.
+  // let token = Cookies.get('token')
   let isLogin  = sessionStorage.getItem('user')
   if(to.path === '/login'){
     if(isLogin){
@@ -114,6 +115,7 @@ function addDynamicRoutes (menuList = [], routes = []) {
           // 如url="sys/user"，则组件路径应是"@/views/sys/user.vue",否则组件加载不到
           let array = menuList[i].url.split('/')
           let url = array[0].substring(0,1).toUpperCase()+array[0].substring(1) + '/' + array[1].substring(0,1).toUpperCase()+array[1]  .substring(1)
+          console.log('路由地址',url)
           route['component'] = resolve => require([`@/views/${url}`], resolve)
         } catch (e) {}
       }

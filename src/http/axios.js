@@ -18,6 +18,7 @@ export default function $axios(options) {
     instance.interceptors.request.use(
       config => {
         let token = Cookies.get('token')
+        console.log('token',token)
         // 1. 请求开始的时候可以结合 vuex 开启全屏 loading 动画
         // console.log(store.state.loading)
         // console.log('准备发送请求...')
@@ -102,6 +103,7 @@ export default function $axios(options) {
               break
             case 401:
               err.message = '未授权，请登录'
+              router.push('/login')
               break
             case 403:
               err.message = '拒绝访问'
