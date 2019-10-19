@@ -25,7 +25,7 @@
 
 <script>
 import mock from "@/mock/index";
-
+import Cookies from "js-cookie"
 export default {
   
   data() {
@@ -48,9 +48,12 @@ export default {
         type: "warning"
       })
       .then(() => {
-        sessionStorage.removeItem("user");
-        this.$router.push
-        ("/login");
+        sessionStorage.removeItem("user")
+        Cookies.remove("token")
+        this.$router.push("/login")
+        this.$api.login.logout().then((res) => {
+          }).catch(function(res) {
+        })
       })
       .catch(() => {})
     }

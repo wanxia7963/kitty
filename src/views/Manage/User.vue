@@ -3,18 +3,18 @@
     <div class="toolBar" style="float:left;padding-top:10px;padding-left:15px;">
       <el-form :inline="true" :model="filters" >
         <el-form-item>
-          <el-input v-model="filters.name" placeholder="用户名"></el-input>
+          <el-input v-model="filters.name" size="mini" placeholder="用户名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button size="small" type="primary" >查询</el-button>
+          <el-button size="mini" type="primary" >查询</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button size="small" type="primary" >刷新</el-button>
+          <el-button size="mini" type="primary" >刷新</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="toolbar" style="float:right;padding-top:10px;padding-right:15px;">
-      <el-button class="addbtn" size="small" type="primary"  @click="handleAdd">+新增</el-button>
+      <el-button class="addbtn" size="mini" icon="fa fa-hand-pointer-o" type="primary"  @click="handleAdd"> 新增</el-button>
     </div>
     <div class="tableColor">
       <kt-table :max-height="650" :columns="filterColumns" :data="pageResult"></kt-table>

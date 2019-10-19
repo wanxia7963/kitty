@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Cookies from "js-cookie"
 import Home from '@/views/Home'
 import Login from '@/views/Login'
 import NotFound from '@/views/Error/404'
@@ -27,7 +28,7 @@ const router = new Router({
       component: Login
     },
     {
-      path:'/404',
+      path:'/error/404',
       name:'NotFound',
       component: NotFound
     }
@@ -36,16 +37,15 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // to and from are both route objects. must call `next`.
-  // let token = Cookies.get('token')
-  let isLogin  = sessionStorage.getItem('user')
+  let token = Cookies.get('token')
   if(to.path === '/login'){
-    if(isLogin){
+    if(token){
       next({path:'/'})
     } else {
       next()
     }
   } else {
-    if(!isLogin) {
+    if(!token) {
       next({path:'/login'})
     } else {
       addDynamicMenuAndRoutes()
@@ -66,13 +66,13 @@ function addDynamicMenuAndRoutes() {
   .then( (res) => {
     // 添加动态路由
     console.log('路由',res)
-    let dynamicRoutes = addDynamicRoutes(res.dataList)
+    let dynamicRoutes = addDynamicRoutes(res.data)
     router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
     router.addRoutes(router.options.routes);
     // 保存加载状态
     store.commit('menuRouteLoaded', true)
     // 保存菜单树
-    store.commit('setMenuTree', res.dataList)
+    store.commit('setMenuTree', res.data)
   })
   .catch(function(res) {
     alert(res);

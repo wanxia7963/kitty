@@ -1,7 +1,7 @@
 <template>
   <div class="logPage">
     <div class="toolbar">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
           <el-form-item label="按标题查看：">
             <el-select class="select" v-model="formInline.title" placeholder="全部">
               <el-option label="区域一" value="shanghai"></el-option>

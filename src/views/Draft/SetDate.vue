@@ -1,11 +1,25 @@
 <template>
-  <div class="site-wrapper site-page--not-found">
-    <div class="site-content__wrapper">
-      <div class="site-content">
-        <h2 class="not-found-title">警示牌日期设置</h2>
-        <p class="not-found-desc">这是警示牌日期设置页面 ...</p>
-        <el-button @click="$router.go(-1)">返回上一页</el-button>
-        <el-button type="primary" class="not-found-btn-gohome" @click="$router.push('/')">进入首页</el-button>
+  <div class="setDatePage">
+    <div class="background">
+      <div class="formContent">
+        <el-form ref="form" label-position="right" :model="form" label-width="100px" size="mini">
+          <el-form-item label="预警：">
+            <el-input v-model="form.wariningData" placeholder="请输入预警天数"></el-input>
+          </el-form-item>
+          <el-form-item label="黄牌：">
+            <el-input v-model="form.yellowDate" placeholder="请输入预警天数"></el-input>
+          </el-form-item>
+          <el-form-item label="红牌：">
+            <el-input v-model="form.redDate" placeholder="请输入预警天数"></el-input>
+          </el-form-item>
+          <el-form-item label="温馨提示：">
+            <p style="text-align:left">"_"代表提前，"+"代表延后</p>
+          </el-form-item>
+          <el-form-item class="submitBtn">
+            <el-button>取消</el-button>
+            <el-button type="primary" @click="onSubmit" style="margin-left:50px">确认</el-button>
+          </el-form-item>
+        </el-form>
       </div>
     </div>
   </div>
@@ -13,5 +27,35 @@
 
 <script>
   export default {
+    data() {
+      return {
+        form:{
+          wariningData:'',
+          yellowDate:'',
+          redDate:''
+        }
+      }
+    },
   }
 </script>
+<style lang="scss" scoped>
+.setDatePage{
+  padding:30px;
+  .background{
+    background: #fff;
+    height: 700px;
+    border-radius: 15px;
+  }
+  .formContent{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-top: 150px
+  }
+  .submitBtn{
+    margin-top: 20px
+  }
+}
+</style>

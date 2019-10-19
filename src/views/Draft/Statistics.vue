@@ -109,6 +109,14 @@ import echart from '@/components/Echarts'
     },
     components:{
       echart
+    },
+    methods:{
+      getContType(){
+        this.$api.proposal.getContType()
+        .then((res)=>{
+          console.log(res);
+        })
+      }
     }
   }
 </script>

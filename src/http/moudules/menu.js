@@ -15,8 +15,8 @@ export const getMenu = data => {
 
 export const findMenuTree = () => {
     return axios({
-        url: '/menu/findTree',
-        // url: '/apis/user/menu/r',
+        // url: '/menu/findTree',
+        url: '/apis/user/menu/r',
         method: 'get'
     })
 }

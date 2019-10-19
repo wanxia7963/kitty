@@ -39,10 +39,15 @@ import axios from './axios'
 import * as login from './moudules/login'
 import * as user from './moudules/user'
 import * as menu from './moudules/menu.js'
+import * as dept from './moudules/dept.js'
+//提案建议接口
+import * as proposal from './moudules/proposal.js'
 
 // 默认全部导出
 export default {
     login,
     user,
-    menu
+    menu,
+    dept,
+    proposal
 }

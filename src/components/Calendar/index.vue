@@ -3,9 +3,9 @@
         <div class="cal-top">
                 <div class="cal-YM">
                     <div class="YM-text">
-                        <div title='上一月' class="cal-left hand fl" @click="getPrevMonth"></div>
+                        <div title='上一月' class="cal-left hand fl" @click="getPrevMonth"><i class="el-icon-arrow-left"></i></div>
                         {{calendar.year}}年 / {{calendar.month}}月<span @click="backToday" class='hand' title="返回今天" v-if='showToday'>今</span>
-                        <div title='下一月' class="cal-right hand fr"  @click="getNextMonth"></div>
+                        <div title='下一月' class="cal-right hand fr"  @click="getNextMonth"><i class="el-icon-arrow-right"></i></div>
                     </div>
                 </div>
                 <div class="cal-week-wrap">
@@ -77,7 +77,7 @@ export default{
             // 当前月天数
             for(let i=1; i<=that.getLastDate(y,m).getDate(); i++){
                 //date用于日期判断，day用于显示，flag用于状态判断
-                that.calendar.current.push({date:y+'-'+m+'-'+that.initDate(i),day:i,timeList:[],disable:true});
+                that.calendar.current.push({date:y+'-'+m+'-'+that.initDate(i),day:i,timeList:[],disable:false});
             }
 
             /*上月*/
@@ -91,7 +91,7 @@ export default{
             /*下月*/
             nextYear= m == 12 ?  y+1 : y;//当前月是12月，那么下一月的年份要+1
             nextMonth= m == 12 ? '01' : that.initDate(parseInt(m)+1);//当前月是12月，那么下一月是1月
-            for(let k=1; k <= 35- that.calendar.current.length - that.calendar.prev.length; k++){
+            for(let k=1; k <= 42- that.calendar.current.length - that.calendar.prev.length; k++){
                 that.calendar.next.push({date:nextYear+'-'+nextMonth+'-'+that.initDate(k),day:k,timeList:[],disable:true});
             }
             that.calendar.dayList=[];
@@ -153,12 +153,12 @@ export default{
 .fl{float: left;}
 .fr{float: right;}
 .hand{cursor: pointer;}
-.cal-wrap{height: 250px;}
+.cal-wrap{height: 245px;box-shadow: 0px 2px 0px 0px rgba(169, 169, 169, 0.25);}
 .cal-wrap,.perconsult .cert-title + p{font-family:'SimSun';}
-.cal-YM{text-align:center;font-size:28px;line-height:35px; width: 260px; margin:0 auto;}
+.cal-YM{text-align:center;font-size:24px;line-height:35px; width: 260px; margin:0 auto;}
 .cal-body{ border-right:1px solid #eee; border-left:1px solid #eee;}
-.cal-week{width:14.28%;text-align:center;line-height:40px; font-size: 16px; float: left;}
-.YM-text{ font-size: 18px;}
+.cal-week{width:14.28%;text-align:center;line-height:40px; font-size: 12px; float: left;}
+.YM-text{ font-size: 14px;}
 .YM-text span{display:inline-block;margin:-10px 0 0 10px;width:26px;height:26px;border-radius:3px;background:#f17437;line-height:26px;color:#fff; font-size: 14px;}
 .cal-left,.cal-right{font-size: 22px; width: 20px; text-align: center;}
 .cal-left:hover > i,.cal-right:hover > i{color:#3583f7};
@@ -166,10 +166,11 @@ export default{
 .calWidth{width: 100%}
 .cal-table td{ cursor: pointer; vertical-align: top;}
 .cal-table td:hover{background: #f5f5ed;}
-.cal-item{min-height: 30;height: 30px;line-height: 30px}
-.cal-item > span{display:block;width: 30px; height: 30px;border-radius: 50%; margin:0 auto; font-size: 16px;font-weight: 600;letter-spacing: 1px;}
+.cal-item{min-height: 25;height: 25px;line-height: 25px;}
+.cal-item > span{display:block;width: 25px; height: 25px;border-radius: 50%; margin:0 auto; font-size: 14px;font-weight: 600;letter-spacing: 1px;}
 .cal-active > span{ color:#fff!important; background: #3583f7;}
 .cal-time-list{font-size: 12px; text-align: left;}
 .cal-time-list > p{ width:100px;margin:0 auto; padding-left: 8px; height: 18px; line-height:18px;}
 .cal-time-list > p >span{display:block; overflow: hidden;}
+.bg-grey{color: #ccc;pointer-events: none!important;cursor: default!important;}
 </style>
