@@ -30,7 +30,7 @@
 
 import axios from './axios'
 
-/* 
+/*
  * 将所有接口统一起来便于维护
  * 如果项目很大可以将 url 独立成文件，接口分成不同的模块
  */
@@ -40,8 +40,9 @@ import * as login from './moudules/login'
 import * as user from './moudules/user'
 import * as menu from './moudules/menu.js'
 import * as dept from './moudules/dept.js'
-//提案建议接口
+import * as role from './moudules/role.js'
 import * as proposal from './moudules/proposal.js'
+import * as common from './moudules/common.js'
 
 // 默认全部导出
 export default {
@@ -49,5 +50,7 @@ export default {
     user,
     menu,
     dept,
-    proposal
+    proposal,
+    role,
+    common
 }

@@ -40,13 +40,15 @@
              </div>
           </div>
         </div>
-         
+        
     </div>
     <div style="padding:10px;background:#fff;border-radius:10px;margin-top:15px;">
       <kt-table :height="90" :columns="filterColumns" :data="pageResult"></kt-table>
     </div>
-    <div>
-
+    <div class="commit_btn">
+      <el-button type="primary">增加复议人</el-button>
+      <el-button type="primary">提交</el-button>
+      <el-button type="danger">关闭</el-button>
     </div>
   </div>
 </template>
@@ -124,5 +126,11 @@
 }
 .edui-default .edui-editor,.edui-default .edui-editor-bottomContainer td{
   border:none !important;
+}
+.commit_btn{
+  margin-top: 25px;
+  .el-button{
+    margin-left: 40px;
+  }
 }
 </style>

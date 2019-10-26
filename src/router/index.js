@@ -7,6 +7,7 @@ import NotFound from '@/views/Error/404'
 import Intro from '@/views/Intro'
 import api from '@/http/api'
 import store from '@/store'
+import AddressList from '@/page/AddressList'
 import { isURL } from '@/utils/validate'
 
 Vue.use(Router)
@@ -16,10 +17,12 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: '首页',
       component: Home,
+      name:'首页',
+      redirect:'/index',
       children:[
-        { path: '', component: Intro, name: '系统介绍' }
+        { path: 'index', component: Intro },
+        { path:'addressList',component: AddressList, name:'通讯录'}
       ]
     },
     {

@@ -17,7 +17,7 @@
           </el-form-item>
           <el-form-item class="submitBtn">
             <el-button>取消</el-button>
-            <el-button type="primary" @click="onSubmit" style="margin-left:50px">确认</el-button>
+            <el-button type="primary"  style="margin-left:50px">确认</el-button>
           </el-form-item>
         </el-form>
       </div>

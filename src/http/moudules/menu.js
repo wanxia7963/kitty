@@ -12,7 +12,7 @@ export const getMenu = data => {
 /* 
  * 菜单管理模块
  */
-
+//查询菜单
 export const findMenuTree = () => {
     return axios({
         // url: '/menu/findTree',

@@ -4,19 +4,19 @@
    <div class="nav">
       <span class="nav-bar">
         <div class="setStyle">
-          <div class="item"><img src="" alt=""><span>APP下载</span></div>
-          <div class="item"><img src="" alt=""><span>修改密码</span></div>
-          <div class="item">
+          <div class="item"><i class="fa fa-download fa-2x" ></i><span style="margin-left:15px;">APP下载</span></div>
+          <div class="item" style="border-right:1px solid #ccc"><img src="" alt=""><span>修改密码</span></div>
+          <!-- <div class="item">
             <img src="" alt="">
             <span>政协提案录入开关</span> 
             <el-switch  v-model="value"  active-color="#49a0f9"  inactive-color="#ccc"></el-switch>
-            </div>
+          </div> -->
         </div>
       </span>
       <span class="tool-bar">
         <div class="setStyle">
-          <div class="item"><img src="" alt=""><span>{{username}}</span></div>
-          <div class="item" @click="logout"><img src="" alt=""><span >退出登陆</span></div>
+          <div class="item"><i class="fa fa-user-circle fa-2x" ></i><span style="margin-left:15px;">{{username}}</span></div>
+          <div class="item" @click="logout"><i class="fa fa-sign-out fa-2x" ></i><span style="margin-left:15px;" >退出登陆</span></div>
         </div>
       </span>
    </div>
@@ -108,6 +108,9 @@ export default {
       font-size: 16px;
       color: #212121;
       font-weight: normal;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
   .tool-bar {

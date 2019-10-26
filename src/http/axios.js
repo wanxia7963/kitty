@@ -36,7 +36,6 @@ export default function $axios(options) {
           //   || config.url.endsWith('mark')
           //   || config.url.endsWith('patchs')
           // ) {
-
           // } else {
           //   config.data = qs.stringify(config.data)
           // }
@@ -92,7 +91,6 @@ export default function $axios(options) {
         // err.data = data
         // err.response = response
         // throw err
-
         return data
       },
       err => {

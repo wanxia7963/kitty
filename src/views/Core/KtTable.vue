@@ -8,7 +8,7 @@
                 :label="column.label"
                 :width="column.width">
             </el-table-column>
-            <el-table-column label="操作" width="185" fixed="right" v-if="showOperation" header-align="center" align="center">
+            <el-table-column label="操作"  fixed="right" v-if="showOperation" header-align="center" align="center">
                 <el-button icon="fa fa-edit" label="编辑"  :size="size" />
                 <el-button icon="fa fa-trash" label="删除" :size="size" type="danger"  />
             </el-table-column>

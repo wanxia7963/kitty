@@ -12,10 +12,10 @@
       <div class="table" style="padding: 5px 0">
         <Calender></Calender>
         <div class="calendarMenu">
-          <div class="addressList">
+          <router-link tag="div" to="/addressList" class="addressList">
             <img src="../../assets/addressList.png" alt="">
             <span>通讯录</span>
-          </div>
+          </router-link>
           <div class="favorite">
             <img src="../../assets/favorite.png" alt="">
             <span>收藏夹</span>
@@ -33,7 +33,7 @@
               <div class="item active">{{"超时曝光台【"+num+"】"}}</div>
             </div>
             <div class="tools">
-              <el-button type="text">加载更多 <i class="el-icon-arrow-right"></i></el-button>
+              <el-button type="text">查看更多 <i class="el-icon-arrow-right"></i></el-button>
             </div>
           </div>
           <div class="card_content">
@@ -53,7 +53,7 @@
             </div>
             <div class="tools">
                <el-button size="mini" >发布</el-button>
-              <el-button type="text">加载更多 <i class="el-icon-arrow-right"></i></el-button>
+              <el-button type="text">查看更多 <i class="el-icon-arrow-right"></i></el-button>
             </div>
           </div>
           <div class="card_content">
