@@ -12,6 +12,7 @@
             <div v-if="tabsName[0].isActive">
                 <ul class="card_ul">
                     <li>暂无{{tabsName[0].name}}</li>
+                    <li @click="toProposalList">2019年度待办提案列表</li>
                 </ul>
             </div>
             <div v-if="tabsName[1].isActive">
@@ -23,7 +24,7 @@
         <div class="card_floot">
             <el-pagination
                 small
-                layout="prev, pager, next" 
+                layout="prev, pager, next"
                 :total="50">
             </el-pagination>
         </div>
@@ -47,11 +48,15 @@ export default {
     },
     methods:{
         tabsSwitch(index){
-        this.tabsName.forEach(function (item) {
-          item.isActive = false
-        })
-        this.tabsName[index].isActive = true
-      }
+          this.tabsName.forEach(function (item) {
+            item.isActive = false
+          })
+          this.tabsName[index].isActive = true
+        },
+        //前往提案列表页面
+        toProposalList(){
+            this.$router.push('/proposalList')
+        }
     }
 }
 </script>
@@ -92,7 +97,7 @@ export default {
               color: #409EFF;
             }
           }
-          
+
         }
         .card_content{
             .card_ul{

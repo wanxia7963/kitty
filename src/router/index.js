@@ -8,6 +8,9 @@ import Intro from '@/views/Intro'
 import api from '@/http/api'
 import store from '@/store'
 import AddressList from '@/page/AddressList'
+import ProposalList from '@/page/ProposalList'
+import ProposalContent from '@/page/ProposalContent'
+import MergeProposal from '@/page/MergeProposal'
 import { isURL } from '@/utils/validate'
 
 Vue.use(Router)
@@ -22,7 +25,12 @@ const router = new Router({
       redirect:'/index',
       children:[
         { path: 'index', component: Intro },
-        { path:'addressList',component: AddressList, name:'通讯录'}
+        { path:'addressList',component: AddressList, name:'通讯录'},
+        { path:'proposalList',component: ProposalList, name:'提案列表'},
+        { path:'proposalContent',component: ProposalContent, name:'提案内容详情'},
+        { path:'mergeProposal',component: MergeProposal, name:'提案内容详情'},
+
+
       ]
     },
     {

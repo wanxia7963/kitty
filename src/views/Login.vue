@@ -42,7 +42,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary"
-                               class="login-submit login"
+                               class="login-submit loginbtn"
                                v-on:click="login">登陆
                     </el-button>
                 </el-form-item>
@@ -154,14 +154,14 @@ import Cookies from "js-cookie";
   letter-spacing: 5px;
 }
 
-.login {
+.loginbtn {
   width: 100%;
   height: 55px;
   background-color: #49a0f9;
   font-size: 26px;
   letter-spacing: 6px;
 }
-.login:hover, .login:focus{
+.loginbtn:hover, .loginbtn:focus{
   background: #49a0f9;
   border-color: #49a0f9;
 }
