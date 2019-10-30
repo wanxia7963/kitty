@@ -11,15 +11,19 @@ export const getMenu = () => {
 //获取接口tree
 export const getApi = ()=>{
     return axios({
-        url: '/menu',
+        url: '/apis/admin/perm/r',
         method: 'get'
     })
 };
 //获取所有角色data
 export const getRoleData = (pageNum,pageSize)=>{
   return axios({
-    url:'/apis/admin/role/r?pageNum='+pageNum+'&&pageSize='+pageSize,
-    method:'get'
+    url:'/apis/admin/role/r',
+    method:'get',
+    params:{
+      pageNum:pageNum,
+      pageSize:pageSize
+    }
   })
 };
 //编辑角色信息

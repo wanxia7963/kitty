@@ -32,11 +32,19 @@ export default {
          getUEContent () { // 获取含标签内容方法
             return this.editor.getContent()
         }
+        ,setContent (content){
+            this.execCommand()
+            console.log(content)
+            this.editor.setContent(content,true)
+        },
+        execCommand(){
+            this.editor.execCommand('cleardoc');
+        }
     },
      destroyed () {
         this.editor.destroy()
     }
-    
+
 }
 </script>
 <style lang="scss" >

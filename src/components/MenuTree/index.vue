@@ -29,7 +29,7 @@
       }
     },
     mounted(){
-      console.log(this.menu)
+
     }
   }
 </script>

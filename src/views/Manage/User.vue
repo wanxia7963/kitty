@@ -19,7 +19,7 @@
     <div class="tableColor">
       <kt-table :max-height="650" :columns="filterColumns" :data="pageResult"></kt-table>
     </div>
-    
+
 
     <el-dialog :title="operation?'新增':'编辑'" width="40%" :visible.sync="dialogVisible" :close-on-click-modal="false">
       <el-form :model="dataForm"  label-width="82px"  ref="dataForm" :size="size"
@@ -127,7 +127,10 @@
           {prop:'email',label:'邮箱',minWidth:100}
         ]
         this.filterColumns = JSON.parse(JSON.stringify(this.columns))
-      }
+      },//新增用户
+        addUser(){
+
+        }
     },
     mounted(){
       this.initColumns();

@@ -4,16 +4,16 @@
     <div class="logo menu-bar-width" >
          <div>西区政协提案在线系统</div>
     </div>
-    
+
     <el-menu ref="navmenu" default-active="1" text-color="#fff" active-text-color="#ffffff" class="menu-bar-width barcolor" @open="handleopen" @close="handleclose" @select="handleselect">
       <!-- 导航菜单树组件，动态加载菜单 -->
-      <menu-tree v-for="item in menuTree" :key="item.id" :menu="item"></menu-tree>
+      <menu-tree v-for="(item,index) in menu" :key="index" :menu="item"></menu-tree>
     </el-menu>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import MenuTree from "@/components/MenuTree"
 export default {
   data() {
@@ -36,20 +36,15 @@ export default {
     }
   },
   computed:{
-    ...mapState({
-      // appName: state => state.app.appName,
-      menuTree: state => state.menu.menuTree
-    })
+    ...mapGetters(['menu'])
   },
   mounted() {
-    console.log(this)
+    console.log()
     const that = this
      window.onresize = () => {
         return (() => {
         that.winHeight = window.innerHeight
-
       })()
-
       }
     this.$refs.nav.style.height=this.winHeight+'px';
 
@@ -77,7 +72,7 @@ export default {
   .logo {
     position:absolute;
     top: 0px;
-    height: 60px;   
+    height: 60px;
     line-height: 60px;
     background: #353646;
     div {
@@ -92,6 +87,6 @@ export default {
   .menu-bar-collapse-width {
     width: 65px;
   }
- 
+
 }
 </style>

@@ -28,4 +28,7 @@ export default {
 .el-menu-item.is-active{
   background: #49a0f9
 }
+.el-scrollbar__wrap {
+  overflow-x: hidden;
+}
 </style>

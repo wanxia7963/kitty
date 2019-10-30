@@ -8,7 +8,7 @@
             <div slot="header" class="clearfix">
                 <span>用户登陆</span>
             </div>
-            <el-form label-width="80px" ref="form" :model="form" :rules="rules">
+            <el-form label-width="80px" ref="loginForm" :model="loginForm" :rules="rules">
                 <el-form-item prop="username">
                     <el-input
                             type="text"
@@ -16,7 +16,7 @@
                             prefix-icon="el-icon-my-username"
                             auto-complete="off"
                             placeholder="请输入登陆ID"
-                            v-model="form.account">
+                            v-model="loginForm.account">
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
@@ -26,7 +26,7 @@
                             prefix-icon="el-icon-my-password"
                             auto-complete="off"
                             placeholder="请输入密码"
-                            v-model="form.password">
+                            v-model="loginForm.password">
                     </el-input>
                 </el-form-item>
                 <el-form-item>
@@ -43,7 +43,7 @@
                 <el-form-item>
                     <el-button type="primary"
                                class="login-submit loginbtn"
-                               v-on:click="login">登陆
+                               @click.native.prevent="handleLogin">登陆
                     </el-button>
                 </el-form-item>
             </el-form>
@@ -53,15 +53,12 @@
 </template>
 
 <script>
-import qs from 'qs'
-import mock from '@/mock/index.js';
-import Cookies from "js-cookie";
+
     export default {
         name: "login",
         data() {
             return {
-                logining: false,
-                form: {
+                loginForm: {
                     account: '',
                     password: ''
                 },
@@ -72,21 +69,26 @@ import Cookies from "js-cookie";
                 checked:true
             }
         },methods:{
-            login(){
-              let userInfo =  qs.stringify({username:this.form.account, password:this.form.password})
-              // let userInfo =  {username:this.form.account, password:this.form.password}
-              this.$refs.form.validate(valid=>{
+            handleLogin(){
+
+              this.$refs.loginForm.validate(valid=>{
                   if(valid){
-                      this.logining = true;
-                      this.$api.login.login(userInfo).then((res) => {
-                          // console.log('token',res.dataObject.token)
-                          Cookies.set('token', res.data.token) // 放置token到Cookie
-                          sessionStorage.setItem('user', this.form.account) // 保存用户到本地会话
-                          this.$store.commit('menuRouteLoaded', false)
-                          this.$router.push('/')  // 登录成功，跳转到主页
-                      }).catch(function(res) {
-                          alert(res);
+                      const loading = this.$loading({
+                          lock: true,
+                          text: '登陆中',
+                          spinner: 'el-icon-loading',
+                          background: 'rgba(0, 0, 0, 0.7)'
                       });
+                      console.log(this)
+                      this.$store.dispatch("loginByUsername",this.loginForm)
+                          .then(()=>{
+                              console.log(1)
+                              this.$router.push({path:'/index'})
+                              loading.close()
+                          }).catch(()=>{
+                              console.log(2)
+                              loading.close()
+                      })
                   }
               })
             }
@@ -103,7 +105,7 @@ import Cookies from "js-cookie";
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: url("../assets/bg/登录背景.png") 0 bottom repeat-x;
+  background: url("../../assets/bg/登录背景.png") 0 bottom repeat-x;
   .loginTitle p{
     color: #49a0f9;
     font-size: 40px;
@@ -132,7 +134,7 @@ import Cookies from "js-cookie";
   width: 610px;
   height: 423px;
   margin: 0 auto;
-  background: url("../assets/bg/登录背景框.png") 0 bottom repeat-x;
+  background: url("../../assets/bg/登录背景框.png") 0 bottom repeat-x;
   border: none;
 }
 
@@ -161,18 +163,15 @@ import Cookies from "js-cookie";
   font-size: 26px;
   letter-spacing: 6px;
 }
-.loginbtn:hover, .loginbtn:focus{
-  background: #49a0f9;
-  border-color: #49a0f9;
-}
+
 .el-icon-my-username{
-  background: url(../assets/icons/用户名.png) center no-repeat;
+  background: url(../../assets/icons/用户名.png) center no-repeat;
   background-size: cover;
   width: 22px;
   height: 24px;
 }
 .el-icon-my-password{
-  background: url(../assets/icons/密码.png) center no-repeat;
+  background: url(../../assets/icons/密码.png) center no-repeat;
   background-size: cover;
   width: 22px;
   height: 24px;

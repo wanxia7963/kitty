@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Cookies from "js-cookie"
 import Home from '@/views/Home'
-import Login from '@/views/Login'
+import Login from '@/page/Login'
 import NotFound from '@/views/Error/404'
 import Intro from '@/views/Intro'
 import api from '@/http/api'
@@ -11,6 +11,7 @@ import AddressList from '@/page/AddressList'
 import ProposalList from '@/page/ProposalList'
 import ProposalContent from '@/page/ProposalContent'
 import MergeProposal from '@/page/MergeProposal'
+import ProposalDetail from '@/page/ProposalDetail'
 import { isURL } from '@/utils/validate'
 
 Vue.use(Router)
@@ -29,8 +30,7 @@ const router = new Router({
         { path:'proposalList',component: ProposalList, name:'提案列表'},
         { path:'proposalContent',component: ProposalContent, name:'提案内容详情'},
         { path:'mergeProposal',component: MergeProposal, name:'提案内容详情'},
-
-
+        { path:'proposalDetail',component: ProposalDetail, name:'提案内容详情'},
       ]
     },
     {
@@ -69,21 +69,18 @@ router.beforeEach((to, from, next) => {
 * 加载动态菜单和路由
 */
 function addDynamicMenuAndRoutes() {
-  if(store.state.app.menuRouteLoaded) {
-    console.log('动态菜单和路由已经存在')
-    return
-  }
+
   api.menu.findMenuTree()
   .then( (res) => {
     // 添加动态路由
-    console.log('路由',res)
-    let dynamicRoutes = addDynamicRoutes(res.data)
+
+    let dynamicRoutes = addDynamicRoutes(res.data.data)
     router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
     router.addRoutes(router.options.routes);
     // 保存加载状态
-    store.commit('menuRouteLoaded', true)
+
     // 保存菜单树
-    store.commit('setMenuTree', res.data)
+    store.commit('SET_MENU', res.data.data)
   })
   .catch(function(res) {
     alert(res);

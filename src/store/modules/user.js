@@ -1,17 +1,41 @@
-export default {
-    state:{
-        token:''
-       
+import { setToken, removeToken } from '@/utils/auth';
+import { login,getMenu } from '@/http/moudules/user'
+import qs from 'qs'
+const user = {
+  state:{
+    userInfo:'',
+    roles:[],
+    menu:'',
+    token:''
+  },
+  mutations: {
+    SET_TOKEN: (state,token) =>{
+      setToken(token);
+      state.token = token;
+      window.sessionStorage.setItem('token',token)
     },
-    getters:{
-        
+    SET_MENU: (state, menu) => {
+      state.menu = menu
+      // setStore({ name: 'menu', content: state.menu, type: 'session' })
     },
-    mutations:{
-        SET_TOKEN: (state, token) => {
-            state.token = token
-          },
-    },
-    actions:{
-
+  },
+  actions: {
+    loginByUsername({commit},loginForm) {
+      return new Promise(((resolve, reject) => {
+        let userInfo =  qs.stringify({username:loginForm.account, password:loginForm.password})
+        login(userInfo)
+          .then(res=>{
+            const data = res.data.data;
+            console.log(data)
+            commit('SET_TOKEN',data.token);
+            resolve();
+          }).catch(error=>{
+          reject(error)
+        })
+      }))
     }
-}
+  }
+};
+
+
+export default user

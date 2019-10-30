@@ -2,7 +2,7 @@
     <div class="proposalListPage">
       <div class="proposalList">
         <div class="titleTool">
-          <div>提案列表</div>
+          <div>待办提案列表</div>
           <div style="padding-right: 15px;"><el-button type="primary" @click="toMergeProposal">合并提案</el-button></div>
         </div>
         <div class="listContent">
@@ -22,7 +22,7 @@
               </div>
               <div class="infoRight">
                 <div class="btns">
-                  <el-button size="small" type="primary">主要按钮</el-button>
+                  <el-button size="small" type="primary" @click="editProposal()">编辑</el-button>
                   <el-button size="small" type="success">成功按钮</el-button>
 <!--                  <el-button size="small" type="info">信息按钮</el-button>-->
 <!--                  <el-button size="small" type="danger">危险按钮</el-button>-->
@@ -45,8 +45,15 @@
             </div>
             <div class="infoRight">
               <div class="btns">
-                <el-button size="small" type="primary">主要按钮</el-button>
-                <el-button size="small" type="success">成功按钮</el-button>
+                <el-button size="small" type="primary">编辑</el-button>
+                <el-button size="small" type="success">提交</el-button>
+                <el-button size="small" type="danger">退回</el-button>
+                <el-button size="small" type="primary">转交</el-button>
+                <el-button size="small" type="primary">交办</el-button>
+                <el-button size="small" type="primary">指派</el-button>
+                <el-button size="small" type="primary">签收</el-button>
+                <el-button size="small" type="primary">汇报进度</el-button>
+
                 <!--                  <el-button size="small" type="info">信息按钮</el-button>-->
                 <!--                  <el-button size="small" type="danger">危险按钮</el-button>-->
               </div>
@@ -60,7 +67,31 @@
 <script>
     export default {
         name: "index",
+        data(){
+            return {
+                draftForm:{
+                    brief:'',
+                    type:'',
+                    articleContent:''
+                },
+            }
+        },
         methods:{
+            //编辑提案
+            editProposal(){
+                this.dialogMerge = true;
+                this.draftForm = {
+                    brief: '提案标题',
+                    type: '经济建设与发展'
+                }
+                var content = '提案内容xxxxxxxx'
+                this.$refs.ue.setContent(content)
+            },
+            //输出内容
+            getEdiotrContent () {
+                let content = this.$refs.ue.getUEContent() // 调用子组件方法
+                this.draftForm.articleContent = content
+            },
             //前往提案内容详情页面
             toPrco(){
                 this.$router.push('/proposalContent')

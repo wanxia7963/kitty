@@ -68,20 +68,38 @@
 <!--      权限编辑弹窗-->
         <el-dialog title="权限设置" :visible.sync="dialogSetRole" class="setRole">
             <el-tabs type="border-card">
+<!--              <el-scrollbar style="height: 500px">-->
                 <el-tab-pane label="菜单权限">
+                  <el-scrollbar style="height: 200px">
                     <el-tree
-                        :data="roles"
+                        :data="menuRoles"
                         show-checkbox
-                        ref="roleTree">
+                        :props="menuRolesprops"
+                        ref="menuRoleTree">
                     </el-tree>
+                  </el-scrollbar>
                 </el-tab-pane>
-                <el-tab-pane label="接口权限">
+                <el-tab-pane label="数据权限">
+                  <el-scrollbar style="height: 200px">
                     <el-tree
-                        :data="roles"
+                        :data="PermRoles"
                         show-checkbox
-                        ref="roleTree">
+                        :props="PermRolesprops"
+                        ref="PermRoleTree">
                     </el-tree>
+                  </el-scrollbar>
                 </el-tab-pane>
+                <el-tab-pane label="业务权限">
+                  <el-scrollbar style="height: 200px">
+                    <el-tree
+                      :data="businessRoles"
+                      show-checkbox
+                      :props="businessRolesprops"
+                      ref="businessRoleTree">
+                    </el-tree>
+                  </el-scrollbar>
+                </el-tab-pane>
+<!--              </el-scrollbar>-->
             </el-tabs>
 
             <div slot="footer" class="dialog-footer">
@@ -114,7 +132,7 @@ export default {
             }],
             dialogroleFrom: false,
             dialogSetRole: false,
-            roles: [
+            menuRoles: [
                 {
                     id: 1,
                     label: '首页',
@@ -169,13 +187,28 @@ export default {
                             label: '政协提案录入开关'
                         }]
                 }],
+            PermRoles:[],
+            businessRoles:[],
+
             roleId:'',
             menuIds:[],
             apiIds:[],
             totalPageSize:1,//数据总条数
             pageSize: 10,//每页显示数量
             pageNum: 1,//总页数
-            currentPage:1//当前页
+            currentPage:1,//当前页,
+            menuRolesprops:{
+                children: 'children',
+                label: 'name',
+            },
+            PermRolesprops:{
+                children: 'children',
+                label: 'permissionDesc',
+            },
+            businessRolesprops:{
+                children: 'children',
+                label: 'permissionDesc',
+            }
         }
     },
     methods: {
@@ -201,20 +234,22 @@ export default {
             Object.assign(this.roleForm, row)
         },
         //获取菜单tree接口
-        getMenu() {
-            this.$api.role.getMenu()
-                .then((res) => {
-                    if (res.code === 200) {
-                        console.log(res)
-                    }
-                })
-        },
+        // getMenu() {
+        //     this.$api.role.getMenu()
+        //         .then((res) => {
+        //             if (res.code === 200) {
+        //                 console.log(res)
+        //             }
+        //         })
+        // },
         //获取接口tree接口
         getApi() {
             this.$api.role.getApi()
                 .then((res) => {
-                    if (res.code === 200) {
-                        console.log(res)
+                    if (res.data.code === 200) {
+                        this.menuRoles = res.data.data.menuPerm
+                        this.PermRoles = res.data.data.dataPerm
+                        this.businessRoles = res.data.data.businessPerm
                     }
                 })
         },
@@ -222,11 +257,11 @@ export default {
         getRoleData(pageNum,pageSize) {
             this.$api.role.getRoleData(pageNum,pageSize)
                 .then((res) => {
-                    if (res.code === 200) {
-                        this.pageSize = res.data.pageSize
-                        this.totalPageSize = res.data.totalPageSize
-                        this.currentPage = res.data.currentPage
-                        this.roleData = res.data.data
+                    if (res.data.code === 200) {
+                        this.pageSize = res.data.data.pageSize
+                        this.totalPageSize = res.data.data.totalPageSize
+                        this.currentPage = res.data.data.currentPage
+                        this.roleData = res.data.data.data
                     }
                 })
         },
@@ -328,7 +363,7 @@ export default {
         this.getRoleData(pageNum,pageSize)
         //数据初始化
         // this.getMenu()
-        // this.getApi()
+        this.getApi()
         // this.getRoleData()
     },
 }
