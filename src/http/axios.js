@@ -4,6 +4,7 @@ import qs from 'qs';
 import Cookies from "js-cookie";
 import router from '@/router'
 import NProgress from 'nprogress'
+import store from '@/store';
 
 // 使用vuex做全局loading时使用
 // import store from '@/store'
@@ -71,10 +72,13 @@ export default function $axios(options) {
     instance.interceptors.response.use(
       response => {
         NProgress.done();
-        const status = response.data.code || 200
-        const message = response.data.msg || '未知错误';
+        const status = response.data.code || 200;
+        const message = response.data.message || '未知错误';
         if(status === 401) {
-
+          store.dispatch('FedLogOut')
+            .then(()=>{
+              router.push({path:'/login'})
+            })
         }
         if (status !== 200) {
           Message({
