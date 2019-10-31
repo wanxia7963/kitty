@@ -51,23 +51,21 @@ router.beforeEach((to, from, next) => {
   // to and from are both route objects. must call `next`.
 
   var token = getToken()
-  console.log("getToken",token)
   if(token) {
     if(to.path === '/login'){
-      console.log(1)
       next({path:'/index'})
     } else {
-      console.log(2)
+
       addDynamicMenuAndRoutes()
       next()
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
-      console.log(3)
+
       next()
     } else {
-      console.log(4)
+
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
     }
@@ -92,16 +90,17 @@ router.beforeEach((to, from, next) => {
 * 加载动态菜单和路由
 */
 function addDynamicMenuAndRoutes() {
-
+  if(store.state.user.isMenu){
+    return
+  }
   api.menu.findMenuTree()
   .then( (res) => {
     // 添加动态路由
-
     let dynamicRoutes = addDynamicRoutes(res.data.data)
     router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
     router.addRoutes(router.options.routes);
     // 保存加载状态
-
+    store.commit('SET_IS_MENU', true)
     // 保存菜单树
     store.commit('SET_MENU', res.data.data)
   })
