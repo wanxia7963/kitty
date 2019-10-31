@@ -19,6 +19,7 @@ export default function $axios(options) {
     // request 拦截器
     instance.interceptors.request.use(
       config => {
+        console.log('request 拦截器')
         NProgress.start();
         let token = Cookies.get('token')
         // console.log('token',token)
@@ -47,23 +48,7 @@ export default function $axios(options) {
       },
 
       error => {
-        // 请求错误时
-        console.log('request:', error)
-        // 1. 判断请求超时
-        if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
-          console.log('timeout请求超时')
-          // return service.request(originalRequest);// 再重复请求一次
-        }
-        // 2. 需要重定向到错误页面
-        const errorInfo = error.response
-        console.log(errorInfo)
-        if (errorInfo) {
-          error = errorInfo.data  // 页面那边catch的时候就能拿到详细的错误信息,看最下边的Promise.reject
-          const errorStatus = errorInfo.status; // 404 403 500 ...
-          router.push({
-            path: `/error/${errorStatus}`
-          })
-        }
+
         return Promise.reject(error) // 在调用的那边可以拿到(catch)你想返回的错误信息
       }
     )
@@ -71,12 +56,16 @@ export default function $axios(options) {
     // response 拦截器
     instance.interceptors.response.use(
       response => {
+        console.log('拦截')
         NProgress.done();
         const status = response.data.code || 200;
         const message = response.data.message || '未知错误';
+        console.log(status+"，状态")
         if(status === 401) {
+          console.log('重定向到login')
           store.dispatch('FedLogOut')
             .then(()=>{
+              console.log('重定向到login')
               router.push({path:'/login'})
             })
         }

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Cookies from "js-cookie"
 import Home from '@/views/Home'
 import Login from '@/page/Login'
 import NotFound from '@/views/Error/404'
@@ -13,6 +12,7 @@ import ProposalContent from '@/page/ProposalContent'
 import MergeProposal from '@/page/MergeProposal'
 import ProposalDetail from '@/page/ProposalDetail'
 import { isURL } from '@/utils/validate'
+import { getToken } from '@/utils/auth'
 
 Vue.use(Router)
 
@@ -45,24 +45,47 @@ const router = new Router({
     }
   ]
 })
+const whiteList = ['/login', '/auth-redirect']
 
 router.beforeEach((to, from, next) => {
   // to and from are both route objects. must call `next`.
-  let token = Cookies.get('token')
-  if(to.path === '/login'){
-    if(token){
-      next({path:'/'})
+
+  var token = getToken()
+  console.log("getToken",token)
+  if(token) {
+    if(to.path === '/login'){
+      console.log(1)
+      next({path:'/index'})
     } else {
-      next()
-    }
-  } else {
-    if(!token) {
-      next({path:'/login'})
-    } else {
+      console.log(2)
       addDynamicMenuAndRoutes()
       next()
     }
+  } else {
+    if (whiteList.indexOf(to.path) !== -1) {
+      // in the free login whitelist, go directly
+      console.log(3)
+      next()
+    } else {
+      console.log(4)
+      // other pages that do not have permission to access are redirected to the login page.
+      next(`/login?redirect=${to.path}`)
+    }
   }
+  // if(to.path === '/login'){
+  //   if(token){
+  //     next()
+  //   } else {
+  //     next()
+  //   }
+  // } else {
+  //   if(!token) {
+  //     next({path:'/login'})
+  //   } else {
+  //
+  //     next()
+  //   }
+  // }
 
 })
 /**
