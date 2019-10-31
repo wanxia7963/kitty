@@ -17,3 +17,10 @@ export const getUser = () => {
         method: 'get'
     })
 }
+export const logout = () => {
+  return axios({
+    url: '/apis/login/out',
+    // url: '/logout',
+    method: 'get'
+  })
+}

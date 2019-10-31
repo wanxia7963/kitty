@@ -1,11 +1,11 @@
 import { setToken, removeToken } from '@/utils/auth';
-import { login,getMenu } from '@/http/moudules/user'
+import { login,getMenu,logout } from '@/http/moudules/user'
 import qs from 'qs'
 const user = {
   state:{
     userInfo:'',
     roles:[],
-    menu:'',
+    menu:[],
     token:''
   },
   mutations: {
@@ -33,6 +33,26 @@ const user = {
           reject(error)
         })
       }))
+    },
+    FedLogOut({commit}){
+      return new Promise(resolve => {
+        commit('SET_TOKEN','')
+        commit('SET_MENU',[])
+        removeToken()
+        resolve()
+      })
+    },
+    logOut({commit}){
+      return new Promise((resolve, reject) => {
+        logout().then(()=>{
+          commit('SET_TOKEN','')
+          commit('SET_MENU',[])
+          removeToken()
+          resolve()
+        }).catch(error=>{
+          reject(error)
+        })
+      })
     }
   }
 };
