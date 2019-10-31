@@ -19,7 +19,7 @@ export default function $axios(options) {
     // request 拦截器
     instance.interceptors.request.use(
       config => {
-        NProgress.start()
+        NProgress.start();
         let token = Cookies.get('token')
         // console.log('token',token)
         // 1. 请求开始的时候可以结合 vuex 开启全屏 loading 动画
