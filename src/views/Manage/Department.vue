@@ -191,7 +191,6 @@
       }
     },
     methods:{
-
       //删除分组
       deleteGroup(id){
         this.$confirm('确认删除该分组吗?','提示',{})
