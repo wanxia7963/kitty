@@ -11,7 +11,7 @@
         <div class="card_content" :style="{height:height+'px'}">
             <div v-if="tabsName[0].isActive">
                 <ul class="card_ul">
-                    <li>暂无{{tabsName[0].name}}</li>
+
                     <li @click="toProposalList">2019年度待办提案列表</li>
                 </ul>
             </div>

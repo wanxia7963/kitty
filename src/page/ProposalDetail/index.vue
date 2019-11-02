@@ -91,6 +91,14 @@
                     }
                 ]
             }
+        },
+        methods:{
+            initProposal(){
+
+            }
+        },
+        mounted(){
+            // this.initProposal()
         }
     }
 </script>

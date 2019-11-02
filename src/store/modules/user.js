@@ -22,7 +22,10 @@ const user = {
     },
     SET_IS_MENU:(state,isMenu)=> {
       state.isMenu = isMenu
-    }
+    },
+    SET_ROLES: (state, roles) => {
+      state.roles = roles;
+    },
   },
   actions: {
     loginByUsername({commit},loginForm) {
@@ -30,10 +33,13 @@ const user = {
         let userInfo =  qs.stringify({username:loginForm.account, password:loginForm.password})
         login(userInfo)
           .then(res=>{
+            var roles = new Array();
             console.log("登陆")
             const data = res.data.data;
             console.log(data)
             commit('SET_TOKEN',data.token);
+            roles = data.permission.split(',')
+            commit('SET_ROLES',roles);
             resolve();
           }).catch(error=>{
           reject(error)

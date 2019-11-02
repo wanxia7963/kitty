@@ -23,7 +23,7 @@
 
     <el-dialog :title="operation?'新增':'编辑'" width="40%" :visible.sync="dialogVisible" :close-on-click-modal="false">
       <el-form :model="dataForm"  label-width="82px"  ref="dataForm" :size="size"
-        label-position="left">
+               label-position="left">
         <el-form-item label="登录名:" prop="loginName">
           <el-input v-model="dataForm.loginName" auto-complete="off"></el-input>
         </el-form-item>
@@ -33,7 +33,7 @@
         <el-form-item label="性别：" prop="sex">
           <el-input v-model="dataForm.sex" auto-complete="off"></el-input>
         </el-form-item>
-         <el-form-item label="姓名：" prop="name">
+        <el-form-item label="姓名：" prop="name">
           <el-input v-model="dataForm.name" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="部门：" prop="department">
@@ -64,89 +64,89 @@
 </template>
 
 <script>
-  import KtTable from "@/views/Core/KtTable"
-  export default {
-    components:{
-      KtTable
-    },
-    data() {
-      return {
-        size: 'small',
-        filters:{
-          name:''
+    import KtTable from "@/views/Core/KtTable"
+    export default {
+        components:{
+            KtTable
         },
-        columns: [],
-        filterColumns:[],
-        operation: false, // true:新增, false:编辑
-			  dialogVisible: false, // 新增编辑界面是否显示
-        pageResult:{},
-        deptData: [],
-        dataForm: {
-          id: 0,
-          loginName:'',
-          name: '',
-          password: '123456',
-          sex:'',
-          department: "",
-          deptName: '',
-          email: 'test@qq.com',
-          mobile: '13889700023',
-          position: "",
-          phone:'',
-          address:''
+        data() {
+            return {
+                size: 'small',
+                filters:{
+                    name:''
+                },
+                columns: [],
+                filterColumns:[],
+                operation: false, // true:新增, false:编辑
+                dialogVisible: false, // 新增编辑界面是否显示
+                pageResult:{},
+                deptData: [],
+                dataForm: {
+                    id: 0,
+                    loginName:'',
+                    name: '',
+                    password: '123456',
+                    sex:'',
+                    department: "",
+                    deptName: '',
+                    email: 'test@qq.com',
+                    mobile: '13889700023',
+                    position: "",
+                    phone:'',
+                    address:''
+                },
+            }
         },
-      }
-    },
-    methods:{
-      handleAdd(){
-        this.dialogVisible = true
-        this.operation = true
-        this.dataForm = {
-          id: 0,
-          name: '',
-          password: '',
-          deptId: 1,
-          deptName: '',
-          email: 'test@qq.com',
-          mobile: '13889700023',
-          status: 1,
-          userRoles: []
-        }
-      },
-      initColumns(){
-        this.columns = [
-          {prop:'id',label:'编号',minWidth:30},
-          {prop:'loginName',label:'登录名',minWidth:70},
-          {prop:'sex',label:'性别',minWidth:30},
-          {prop:'name',label:'姓名',minWidth:50},
-          {prop:'department',label:'部门',minWidth:60},
-          {prop:'position',label:'职位',minWidth:60},
-          {prop:'mobile',label:'联系方式',minWidth:90},
-          {prop:'phone',label:'部门电话',minWidth:90},
-          {prop:'address',label:'通讯地址',minWidth:150},
-          {prop:'email',label:'邮箱',minWidth:100}
-        ]
-        this.filterColumns = JSON.parse(JSON.stringify(this.columns))
-      },//新增用户
-        addUser(){
+        methods:{
+            handleAdd(){
+                this.dialogVisible = true
+                this.operation = true
+                this.dataForm = {
+                    id: 0,
+                    name: '',
+                    password: '',
+                    deptId: 1,
+                    deptName: '',
+                    email: 'test@qq.com',
+                    mobile: '13889700023',
+                    status: 1,
+                    userRoles: []
+                }
+            },
+            initColumns(){
+                this.columns = [
+                    {prop:'id',label:'编号',minWidth:30},
+                    {prop:'loginName',label:'登录名',minWidth:70},
+                    {prop:'sex',label:'性别',minWidth:30},
+                    {prop:'name',label:'姓名',minWidth:50},
+                    {prop:'department',label:'部门',minWidth:60},
+                    {prop:'position',label:'职位',minWidth:60},
+                    {prop:'mobile',label:'联系方式',minWidth:90},
+                    {prop:'phone',label:'部门电话',minWidth:90},
+                    {prop:'address',label:'通讯地址',minWidth:150},
+                    {prop:'email',label:'邮箱',minWidth:100}
+                ]
+                this.filterColumns = JSON.parse(JSON.stringify(this.columns))
+            },//新增用户
+            addUser(){
 
+            }
+        },
+        mounted(){
+            this.initColumns();
         }
-    },
-    mounted(){
-      this.initColumns();
     }
-  }
 </script>
 <style lang="scss" scoped>
-.page_container {
-  padding: 30px;
-}
-.addbtn{
+  .page_container {
+    padding: 30px;
+  }
+  .addbtn{
     letter-spacing: 2px
   }
-.tableColor{
-  padding: 15px;
-  height: 700px;
-  background: #fff;
-}
+  .tableColor{
+    padding: 15px;
+    height: 700px;
+    background: #fff;
+  }
 </style>

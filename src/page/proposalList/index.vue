@@ -3,7 +3,7 @@
       <div class="proposalList">
         <div class="titleTool">
           <div>待办提案列表</div>
-          <div style="padding-right: 15px;"><el-button type="primary" @click="toMergeProposal">合并提案</el-button></div>
+          <div style="padding-right: 15px;"><el-button type="primary" @click="toMergeProposal">提案合并</el-button></div>
         </div>
         <div class="listContent">
             <div class="listInfo">
@@ -61,11 +61,61 @@
           </div>
         </div>
       </div>
+      <el-dialog title="编辑" :visible.sync="dialogMerge" width="50%" top="5vh">
+        <div>
+          <div class="row" style="border-top:1px solid  #ccc">
+            <div class="lable">案由：</div>
+            <div class="content">
+              <el-input v-model="draftForm.brief"></el-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="lable">分类选择：</div>
+            <div class="content">
+              <el-select v-model="draftForm.type" placeholder="请选择分类">
+                <el-option label="经济建设与发展" value="经济建设与发展"></el-option>
+                <el-option label="科教文卫" value="科教文卫"></el-option>
+                <el-option label="民主法治，社会治理，民生保障" value="民主法治，社会治理，民生保障"></el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="lable">文章内容：</div>
+            <div class="content">
+              <UE :id="id" :config="config"  ref="ue"></UE>
+              <div class="upload">
+                <div></div>
+                <div>上传附件</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <el-table border :data="proposalData" style="width: 100%;margin-top: 8px"  height="145">
+            <el-table-column prop="name" label="姓名" >
+            </el-table-column>
+            <el-table-column prop="address" label="通讯地址" >
+            </el-table-column>
+            <el-table-column  prop="phone" label="联系电话">
+            </el-table-column>
+          </el-table>
+        </div>
+
+
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogMerge = false">取 消</el-button>
+          <el-button type="primary" @click="dialogMerge = false">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
 </template>
 
 <script>
+    import UE from '@/components/Ueditor'
     export default {
+        components:{
+            UE
+        },
         name: "index",
         data(){
             return {
@@ -74,6 +124,26 @@
                     type:'',
                     articleContent:''
                 },
+                dialogMerge:false,
+                proposalData:[{
+                    name:'张三',
+                    address:'重庆市沙坪坝区大学城东路21号',
+                    phone:'15123410878'
+                },{
+                    name:'李四',
+                    address:'重庆市沙坪坝区大学城东路21号',
+                    phone:'15123410778'
+                },{
+                    name:'李四',
+                    address:'重庆市沙坪坝区大学城东路21号',
+                    phone:'15123410778'
+                }],
+                config: {
+                    initialFrameWidth: null,
+                    initialFrameHeight: 300,
+                    enableAutoSave: false,
+                },
+                id: 'listUE',
             }
         },
         methods:{
@@ -85,7 +155,8 @@
                     type: '经济建设与发展'
                 }
                 var content = '提案内容xxxxxxxx'
-                this.$refs.ue.setContent(content)
+                console.log(this)
+                // this.$refs.ue.setContent(content)
             },
             //输出内容
             getEdiotrContent () {
@@ -161,6 +232,29 @@
             }
           }
         }
+      }
+    }
+    .row{
+      display: flex;
+      border-bottom:1px solid #ccc;
+      border-left: 1px solid  #ccc;
+      border-right: 1px solid  #ccc;
+      .lable{
+        width: 8%;
+        text-align: left;
+        border-right: 1px solid  #ccc;
+        padding: 5px
+      }
+      .content{
+        width: 94%;
+        text-align: left;
+        padding: 5px 0;
+      }
+      .upload{
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        border-top: 1px solid #ccc;
       }
     }
   }

@@ -11,6 +11,7 @@ import ProposalList from '@/page/ProposalList'
 import ProposalContent from '@/page/ProposalContent'
 import MergeProposal from '@/page/MergeProposal'
 import ProposalDetail from '@/page/ProposalDetail'
+import ProposalNumber from '@/page/ProposalNumber'
 import { isURL } from '@/utils/validate'
 import { getToken } from '@/utils/auth'
 
@@ -29,8 +30,9 @@ const router = new Router({
         { path:'addressList',component: AddressList, name:'通讯录'},
         { path:'proposalList',component: ProposalList, name:'提案列表'},
         { path:'proposalContent',component: ProposalContent, name:'提案内容详情'},
-        { path:'mergeProposal',component: MergeProposal, name:'提案内容详情'},
-        { path:'proposalDetail',component: ProposalDetail, name:'提案内容详情'},
+        { path:'mergeProposal',component: MergeProposal, name:'提案合并'},
+        { path:'proposalDetail',component: ProposalDetail, name:'提案详情'},
+        { path:'proposalNumber',component: ProposalNumber, name:'提案编号'},
       ]
     },
     {
@@ -62,10 +64,8 @@ router.beforeEach((to, from, next) => {
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
-
       next()
     } else {
-
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
     }

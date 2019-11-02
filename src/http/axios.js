@@ -59,7 +59,6 @@ export default function $axios(options) {
         const status = res.data.code || 200
         const message = res.data.msg || '未知错误';
         if (status === 1003) {
-
           store.dispatch('FedLogOut')
             .then(() => router.push({path: '/login'}));
         }

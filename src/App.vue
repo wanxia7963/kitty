@@ -31,4 +31,8 @@ export default {
 .el-scrollbar__wrap {
   overflow-x: hidden;
 }
+.pagination{
+  padding: 15px 5px;
+  text-align: right;
+}
 </style>

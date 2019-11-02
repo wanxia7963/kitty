@@ -2,11 +2,114 @@
   <div class="site-wrapper site-page--not-found">
    <el-row :gutter="24">
     <el-col :span="9">
-        <tabs-card :tabsName="tabsName" ></tabs-card>
+        <div class="table">
+          <div class="card">
+            <div class="card_title">
+              <div class="item" v-for="(tab,index) in tabsName" :key="index" :class="{active:tab.isActive}"  @click="tabsSwitch(tabsName,index)">{{tab.name +"【"+num+"】"}}</div>
+            </div>
+            <div class="tools">
+              <el-input style="width:130px" suffix-icon="el-icon-search"  size="mini" placeholder="请输入内容"></el-input>
+            </div>
+          </div>
+          <div class="card_content" style="height: 200px">
+            <div v-if="tabsName[0].isActive">
+              <ul class="card_ul">
+                <li >
+                  <div @click="toProposalList">2019年度待办提案列表</div>
+                  <el-dropdown>
+                    <span class="el-dropdown-link">
+                      更多<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item>查看</el-dropdown-item>
+                      <el-dropdown-item>不在提醒</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+                </li>
+              </ul>
+            </div>
+            <div v-if="tabsName[1].isActive">
+              <ul  class="card_ul">
+                <li >
+                  <div @click="toProposal">测试事件</div>
+                  <el-dropdown>
+                    <span class="el-dropdown-link">
+                      更多<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item>查看</el-dropdown-item>
+                      <el-dropdown-item>分阅</el-dropdown-item>
+                      <el-dropdown-item>删除</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card_floot">
+            <el-pagination
+              small
+              layout="prev, pager, next"
+              :total="50">
+            </el-pagination>
+          </div>
+        </div>
     </el-col>
 
     <el-col :span="9">
-      <tabs-card :tabsName="tabsName1" ></tabs-card>
+      <div class="table">
+        <div class="card">
+          <div class="card_title">
+            <div class="item" v-for="(tab,index) in tabsName1" :key="index" :class="{active:tab.isActive}"  @click="tabsSwitch(tabsName1,index)">{{tab.name +"【"+num+"】"}}</div>
+          </div>
+          <div class="tools">
+            <el-input style="width:130px" suffix-icon="el-icon-search"  size="mini" placeholder="请输入内容"></el-input>
+          </div>
+        </div>
+        <div class="card_content" style="height: 200px">
+          <div v-if="tabsName1[0].isActive">
+            <ul class="card_ul">
+              <li >
+                <div @click="toProposal">测试事件</div>
+                <el-dropdown>
+                    <span class="el-dropdown-link">
+                      更多<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>查看</el-dropdown-item>
+                    <el-dropdown-item>分阅</el-dropdown-item>
+                    <el-dropdown-item>删除</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </li>
+            </ul>
+          </div>
+          <div v-if="tabsName1[1].isActive">
+            <ul  class="card_ul">
+              <li >
+                <div @click="toProposal">测试事件</div>
+                <el-dropdown>
+                    <span class="el-dropdown-link">
+                      更多<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>查看</el-dropdown-item>
+                    <el-dropdown-item>分阅</el-dropdown-item>
+                    <el-dropdown-item>删除</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card_floot">
+          <el-pagination
+            small
+            layout="prev, pager, next"
+            :total="50">
+          </el-pagination>
+        </div>
+      </div>
     </el-col>
     <el-col :span="6">
       <div class="table" style="padding: 5px 0">
@@ -23,7 +126,7 @@
         </div>
       </div>
     </el-col>
-    
+
   </el-row>
   <el-row :gutter="24">
     <el-col :span="18" class="elcol1">
@@ -101,11 +204,17 @@ import Calender from "@/components/Calendar";
       tabsCard
     },
     methods:{
-      tabsSwitch(index){
-        this.tabsName.forEach(function (item) {
+      tabsSwitch(tabsName,index){
+        tabsName.forEach(function (item) {
           item.isActive = false
         })
-        this.tabsName[index].isActive = true
+        tabsName[index].isActive = true
+      },
+      toProposal(){
+        this.$router.push('/proposalDetail')
+      },
+      toProposalList(){
+          this.$router.push('/proposalList')
       }
     }
   }
@@ -113,7 +222,7 @@ import Calender from "@/components/Calendar";
 
 <style lang="scss">
   .site-wrapper.site-page--not-found {
-    padding-left: 30px; 
+    padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
     .site-content__wrapper {
@@ -139,6 +248,7 @@ import Calender from "@/components/Calendar";
       height: 100%;
       border-radius: 10px;
       font-weight: 600;
+      padding: 5px 10px;
         li{
           text-align: left;
         }
@@ -149,6 +259,7 @@ import Calender from "@/components/Calendar";
             display: flex;
             justify-content: space-between;
             .item{
+              padding-right:20px;
               // padding: 0 20px;
               height: 40px;
               -webkit-box-sizing: border-box;
@@ -178,10 +289,20 @@ import Calender from "@/components/Calendar";
                 font-size: 14px;
                 font-weight: normal;
                 color: #2b2b38;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+              div{
+
+                cursor: pointer;
+              }
             }
           }
         }
-        
+      .card_floot{
+        margin-top: 20px;
+      }
+
     }
     .bg-purple {
       background: #d3dce6;

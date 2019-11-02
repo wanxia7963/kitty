@@ -30,7 +30,13 @@
 
 <script>
     export default {
-        name: "index"
+        name: "index",
+        methods:{
+            //页面初始化
+            initproposal(){
+
+            }
+        }
     }
 </script>
 
