@@ -55,19 +55,12 @@ export default function $axios(options) {
 
     // response 拦截器
     instance.interceptors.response.use(
-      response => {
-        console.log('拦截')
-        NProgress.done();
-        const status = response.data.code || 200;
-        const message = response.data.message || '未知错误';
-        console.log(status+"，状态")
-        if(status === 401) {
-          console.log('重定向到login')
+      res => {
+        const status = res.data.code || 200
+        const message = res.data.msg || '未知错误';
+        if (status === 1003) {
           store.dispatch('FedLogOut')
-            .then(()=>{
-              console.log('重定向到login')
-              router.push({path:'/login'})
-            })
+            .then(() => router.push({path: '/login'}));
         }
         // if (status !== 200) {
         //   // Message({
@@ -77,8 +70,24 @@ export default function $axios(options) {
         //   return Promise.reject(new Error(message))
         // }
         return  response;
+        if (status !== 200) {
+          this.$message({
+            message: message,
+            type: 'error'
+          })
+          return Promise.reject(new Error(message))
+        }
+        return res;
       }, error => {
         NProgress.done();
+        if(error.response) {
+          switch (error.response.status) {
+            case 401: store.dispatch('FedLogOut')
+              .then(()=>{
+                router.push({path: '/login'})
+              })
+          }
+        }
         return Promise.reject(new Error(error));
       })
 
@@ -91,3 +100,4 @@ export default function $axios(options) {
     })
   })
 }
+

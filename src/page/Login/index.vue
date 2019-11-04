@@ -85,7 +85,8 @@
                               console.log(1)
                               this.$router.push({path:'/index'})
                               loading.close()
-                          }).catch(()=>{
+                          }).catch((error)=>{
+                              console.log(error)
                               console.log(2)
                               loading.close()
                       })
@@ -98,7 +99,7 @@
 </script>
 
 <style lang="scss">
-.loginPage{
+.loginPage {
   width: 100%;
   height: 100%;
   display: flex;
@@ -106,104 +107,115 @@
   justify-content: center;
   flex-direction: column;
   background: url("../../assets/bg/登录背景.png") 0 bottom repeat-x;
-  .loginTitle p{
+
+  .loginTitle p {
     color: #49a0f9;
     font-size: 40px;
     letter-spacing: 7px;
   }
-}
 
-.el-card__header {
-  border-bottom: none;
-}
-.el-card__body{
-  padding: 20px 40px 0;
-}
-
-
-.clearfix {
-  text-align: center;
-  span {
-    letter-spacing: 6px;
-    font-size: 26px;
-    color: #49a0f9;
+  .el-card__header {
+    border-bottom: none;
   }
-}
 
-.el-card {
-  width: 610px;
-  height: 423px;
-  margin: 0 auto;
-  background: url("../../assets/bg/登录背景框.png") 0 bottom repeat-x;
-  border: none;
-}
+  .el-card__body {
+    padding: 20px 40px 0;
+  }
 
-.userInput .el-input__inner,.passInput .el-input__inner {
-  height: 55px;
-  border: 3px solid #1f70ac;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding-left: 55px !important;
-  color: #cccccc;
-  font-size: 18px;
-}
-.userInput .el-input__inner:focus,.userInput .el-input__inner:hover,.passInput .el-input__inner:focus,.passInput .el-input__inner:hover{
-  border-color: #1f70ac;
-}
 
-.userInput .el-input__inner::placeholder,.passInput .el-input__inner::placeholder{
-  font-size: 18px;
-  color: #cccccc;
-  letter-spacing: 5px;
-}
+  .clearfix {
+    text-align: center;
 
-.loginbtn {
-  width: 100%;
-  height: 55px;
-  background-color: #49a0f9;
-  font-size: 26px;
-  letter-spacing: 6px;
-}
+    span {
+      letter-spacing: 6px;
+      font-size: 26px;
+      color: #49a0f9;
+    }
+  }
 
-.el-icon-my-username{
-  background: url(../../assets/icons/用户名.png) center no-repeat;
-  background-size: cover;
-  width: 22px;
-  height: 24px;
-}
-.el-icon-my-password{
-  background: url(../../assets/icons/密码.png) center no-repeat;
-  background-size: cover;
-  width: 22px;
-  height: 24px;
-}
-.el-input__prefix{
-  left: 20px;
-  top: 15px;
-}
-.rember {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  .el-checkbox{
+  .el-card {
+    width: 610px;
+    height: 423px;
+    margin: 0 auto;
+    background: url("../../assets/bg/登录背景框.png") 0 bottom repeat-x;
+    border: none;
+  }
+
+  .userInput .el-input__inner, .passInput .el-input__inner {
+    height: 55px;
+    border: 3px solid #1f70ac;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: 55px !important;
+    color: #cccccc;
     font-size: 18px;
-    color: white;
-    .el-checkbox__label{
+  }
+
+  .userInput .el-input__inner:focus, .userInput .el-input__inner:hover, .passInput .el-input__inner:focus, .passInput .el-input__inner:hover {
+    border-color: #1f70ac;
+  }
+
+  .userInput .el-input__inner::placeholder, .passInput .el-input__inner::placeholder {
+    font-size: 18px;
+    color: #cccccc;
+    letter-spacing: 5px;
+  }
+
+  .loginbtn {
+    width: 100%;
+    height: 55px;
+    background-color: #49a0f9;
+    font-size: 26px;
+    letter-spacing: 6px;
+  }
+
+  .el-icon-my-username {
+    background: url(../../assets/icons/用户名.png) center no-repeat;
+    background-size: cover;
+    width: 22px;
+    height: 24px;
+  }
+
+  .el-icon-my-password {
+    background: url(../../assets/icons/密码.png) center no-repeat;
+    background-size: cover;
+    width: 22px;
+    height: 24px;
+  }
+
+  .el-input__prefix {
+    left: 20px;
+    top: 15px;
+  }
+
+  .rember {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .el-checkbox {
       font-size: 18px;
+      color: white;
+
+      .el-checkbox__label {
+        font-size: 18px;
+        letter-spacing: 2px;
+      }
+    }
+
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: #49a0f9;
+    }
+
+    .el-checkbox__input.is-checked .el-checkbox__inner {
+      color: #49a0f9;
+      background-color: #49a0f9;
+    }
+
+    a {
+      font-size: 18px;
+      color: white;
       letter-spacing: 2px;
     }
   }
-  .el-checkbox__input.is-checked + .el-checkbox__label{
-    color: #49a0f9;
-  }
-  .el-checkbox__input.is-checked .el-checkbox__inner{
-    color: #49a0f9;
-    background-color:#49a0f9;
-  }
-  a{
-    font-size: 18px;
-    color: white;
-    letter-spacing: 2px;
-  }
 }
-
 </style>

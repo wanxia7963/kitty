@@ -191,14 +191,13 @@
       }
     },
     methods:{
-
       //删除分组
       deleteGroup(id){
         this.$confirm('确认删除该分组吗?','提示',{})
         .then(()=>{
           this.$api.dept.deleteGroup(id)
           .then((res)=>{
-            if(res.code == 200){
+            if(res.data.code === 200){
               this.$message({ message: '删除成功', type: 'success' })
             } else {
               this.$message({message: '操作失败, ' + res.msg, type: 'error'})
@@ -208,16 +207,16 @@
       },
       //显示新增页面
       handleAdd(type){
-        this.isEdit = false
-        if(type == 0){
-          this.groupDialog = true
+        this.isEdit = false;
+        if(type === 0){
+          this.groupDialog = true;
           this.groupForm = {
             groupId: 0,
             name: '',
             desc:''
           }
-        } else if( type == 1){
-          this.departmentDialog = true
+        } else if( type === 1){
+          this.departmentDialog = true;
           this.deptForm = {
             deptId:0,
             name:'',
@@ -226,7 +225,7 @@
             desc:''
           }
         } else {
-          this.bureauDialog = true
+          this.bureauDialog = true;
           this.bureauForm = {
             roomId:0,
             name:'',
@@ -238,7 +237,7 @@
       //编辑弹窗数据
       handleEdit(row){
         this.isEdit = true
-        if(row.type == 1){
+        if(row.type === 1){
           this.groupDialog = true
           this.groupForm = {
             groupId: row.groupId,
@@ -246,7 +245,7 @@
             desc:row.desc
           }
         }
-         if(row.type == 2){
+         if(row.type === 2){
            this.departmentDialog = true
             this.deptForm = {
             deptId:row.deptId,
@@ -255,7 +254,7 @@
             desc:row.desc
           }
         }
-        if(row.type == 3 ){
+        if(row.type === 3 ){
            this.bureauDialog = true
            this.bureauForm = {
             roomId:row.roomId,
@@ -271,15 +270,14 @@
           if(valid) {
             this.$confirm('确认提交吗?','提示',{})
             .then(()=>{
-              let params = Object.assign({},this.groupForm,)
-              console.log(params)
+              let params = Object.assign({},this.groupForm,);
               if(this.isEdit){
                 this.$api.dept.editGroup(params)
                 .then((res)=>{
-                  if(res.code == 200){
-                    console.log(res)
-                    this.$message({ message: '操作成功', type: 'success' })
-                    this.groupDialog = false
+                  if(res.data.code === 200){
+                    console.log(res);
+                    this.$message({ message: '操作成功', type: 'success' });
+                    this.groupDialog = false;
                     this.$refs['groupForm'].resetFields()
                   }else {
                     this.$message({message: '操作失败, ' + res.msg, type: 'error'})
@@ -288,10 +286,10 @@
               } else{
                 this.$api.dept.groupAdd(params)
                 .then((res)=>{
-                  if(res.code == 200){
-                    console.log(res)
-                    this.$message({ message: '操作成功', type: 'success' })
-                    this.groupDialog = false
+                  if(res.data.code === 200){
+                    console.log(res);
+                    this.$message({ message: '操作成功', type: 'success' });
+                    this.groupDialog = false;
                     this.$refs['groupForm'].resetFields()
                   }else {
                     this.$message({message: '操作失败, ' + res.msg, type: 'error'})
@@ -308,14 +306,14 @@
           if(valid) {
             this.$confirm('确认提交吗?','提示',{})
             .then(()=>{
-              let params = Object.assign({},this.groupForm)
+              let params = Object.assign({},this.groupForm);
               if(this.isEdit){
                 this.$api.dept.editDept(params)
                 .then((res)=>{
-                  if(res.code == 200){
-                    console.log(res)
-                    this.$message({ message: '操作成功', type: 'success' })
-                    this.departmentDialog = false
+                  if(res.data.code === 200){
+                    console.log(res);
+                    this.$message({ message: '操作成功', type: 'success' });
+                    this.departmentDialog = false;
                     this.$refs['deptForm'].resetFields()
                   }else {
                     this.$message({message: '操作失败, ' + res.msg, type: 'error'})
@@ -324,10 +322,10 @@
               }else {
                 this.$api.dept.deptAdd(params)
                 .then((res)=>{
-                  if(res.code == 200){
-                    console.log(res)
-                    this.$message({ message: '操作成功', type: 'success' })
-                    this.departmentDialog = false
+                  if(res.data.code === 200){
+                    console.log(res);
+                    this.$message({ message: '操作成功', type: 'success' });
+                    this.departmentDialog = false;
                     this.$refs['deptForm'].resetFields()
                   }else {
                     this.$message({message: '操作失败, ' + res.msg, type: 'error'})
@@ -349,7 +347,7 @@
               if(this.isEdit){
                 this.$api.dept.editBureau(params)
                 .then((res)=>{
-                  if(res.code == 200){
+                  if(res.data.code === 200){
                     console.log(res)
                     this.$message({ message: '操作成功', type: 'success' })
                     this.groupDialog = false
@@ -361,7 +359,7 @@
               }else {
                 this.$api.dept.bureauAdd(params)
                 .then((res)=>{
-                  if(res.code == 200){
+                  if(res.data.code === 200){
                     console.log(res)
                     this.$message({ message: '操作成功', type: 'success' })
                     this.groupDialog = false
@@ -383,7 +381,7 @@
         .then(()=>{
           this.$api.dept.freeze(id,dept)
           .then((res)=>{
-            if(res.code == 200){
+            if(res.data.code === 200){
               console.log(res)
               this.$message({ message: '操作成功', type: 'success' })
             } else {
@@ -399,7 +397,7 @@
         .then(()=>{
           this.$api.dept.unfreeze(id,type)
           .then((res)=>{
-            if(res.code == 200){
+            if(res.data.code === 200){
               this.$message({ message: '操作成功', type: 'success' })
             } else {
               this.$message({message: '操作失败, ' + res.msg, type: 'error'})
@@ -418,10 +416,10 @@
         }
         this.$api.dept.serchDept(name)
         .then((res)=>{
-          if(res.code == 200){
-              this.tableData =  res.data.data
-              this.totalPageSize = res.data.totalPageSize
-              this.currentPage = res.data.currentPage
+          if(res.data.code === 200){
+              this.tableData =  res.data.data.data
+              this.totalPageSize = res.data.data.totalPageSize
+              this.currentPage = res.data.data.currentPage
           }
         })
       },
@@ -460,9 +458,9 @@
       getDeptTreeData(){
         this.$api.dept.getDeptTree()
         .then((res)=>{
-          if(res.code == 200){
+          if(res.data.code === 200){
             console.log("treedata",res.data)
-            this.tableTree[0].children =  res.data
+            this.tableTree[0].children =  res.data.data
           }
         })
       },
@@ -470,10 +468,10 @@
       getdeptData(pageNum,pageSize){
          this.$api.dept.getDeptData(pageNum,pageSize)
         .then((res)=>{
-         if(res.code == 200){
-            this.tableData = res.data.data
-            this.totalPageSize = res.data.totalPageSize
-            this.currentPage = res.data.currentPage
+         if(res.data.code === 200){
+            this.tableData = res.data.data.data;
+            this.totalPageSize = res.data.data.totalPageSize;
+            this.currentPage = res.data.data.currentPage;
          }
         })
       },
@@ -481,10 +479,10 @@
       getDeptById(id,type,pageNum,pageSize){
         this.$api.dept.getDeptById(id,type,pageNum,pageSize)
           .then((res)=>{
-            if(res.code == 200){
-              this.tableData =  res.data.data
-              this.totalPageSize = res.data.totalPageSize
-              this.currentPage = res.data.currentPage
+            if(res.data.code === 200){
+              this.tableData =  res.data.data.data
+              this.totalPageSize = res.data.data.totalPageSize
+              this.currentPage = res.data.data.currentPage
             }
           })
       },

@@ -6,7 +6,8 @@ const user = {
     userInfo:'',
     roles:[],
     menu:[],
-    token:''
+    token:'',
+    isMenu:false
   },
   mutations: {
     SET_TOKEN: (state,token) =>{
@@ -16,7 +17,14 @@ const user = {
     },
     SET_MENU: (state, menu) => {
       state.menu = menu
+      window.sessionStorage.setItem('menu',menu)
       // setStore({ name: 'menu', content: state.menu, type: 'session' })
+    },
+    SET_IS_MENU:(state,isMenu)=> {
+      state.isMenu = isMenu
+    },
+    SET_ROLES: (state, roles) => {
+      state.roles = roles;
     },
   },
   actions: {
@@ -25,9 +33,13 @@ const user = {
         let userInfo =  qs.stringify({username:loginForm.account, password:loginForm.password})
         login(userInfo)
           .then(res=>{
+            var roles = new Array();
+            console.log("登陆")
             const data = res.data.data;
             console.log(data)
             commit('SET_TOKEN',data.token);
+            roles = data.permission.split(',')
+            commit('SET_ROLES',roles);
             resolve();
           }).catch(error=>{
           reject(error)
@@ -36,8 +48,10 @@ const user = {
     },
     FedLogOut({commit}){
       return new Promise(resolve => {
+        console.log("token过期")
         commit('SET_TOKEN','')
         commit('SET_MENU',[])
+        commit('SET_IS_MENU',false)
         removeToken()
         resolve()
       })
@@ -45,13 +59,21 @@ const user = {
     logOut({commit}){
       return new Promise((resolve, reject) => {
         logout().then(()=>{
+          console.log("退出")
           commit('SET_TOKEN','')
           commit('SET_MENU',[])
+          commit('SET_IS_MENU',false)
           removeToken()
           resolve()
         }).catch(error=>{
           reject(error)
         })
+      })
+    },
+    getMenu({commit},menu) {
+      return new Promise(resolve => {
+        commit('SET_MENU', menu)
+        resolve(menu)
       })
     }
   }

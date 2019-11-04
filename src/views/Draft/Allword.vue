@@ -36,7 +36,35 @@
         </el-form>
     </div>
     <div class="table">
-      <kt-table :max-height="650" :columns="filterColumns" :data="pageResult"></kt-table>
+<!--      <kt-table :max-height="650" :columns="filterColumns" :data="pageResult"></kt-table>-->
+      <el-table :data="allWorkData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border style="width:100%" max-height="650">
+        <el-table-colum type="index" lable="编号" width="70">
+          <template slot-scope="scope">
+            <span>{{(currentPage - 1) * pageSize + scope.$index + 1}}</span>
+          </template>
+        </el-table-colum>
+        <el-table-column lable="提案名称" prop="proposalName"></el-table-column>
+        <el-table-column lable="提案类型" prop="proposalType"></el-table-column>
+        <el-table-column lable="经办单位" prop="accomplishUnit"></el-table-column>
+        <el-table-column lable="当前状态" prop="proposalStatus"></el-table-column>
+        <el-table-column lable="操作">
+          <template slot-scope="scope">
+            <el-button type="text" size="small">编辑</el-button>
+            <el-button type="text" size="small">编辑</el-button>
+            <el-button type="text" size="small">编辑</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totalPageSize">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +77,7 @@
     },
     data() {
       return {
+        allWorkData:{},
         formInline:{
           title:'',
           unit:'',
@@ -56,25 +85,39 @@
           year:'',
           search:''
         },
-        columns:[],
-        pageResult:{},
-        filterColumns:[]
+
+        filterColumns:[],
+        totalPageSize:40,//数据总条数
+        pageSize: 10,//每页显示数量
+        pageNum: 1,//
+        currentPage:1//当前页
+
       }
     },
     methods:{
-       initColumns(){
-        this.columns = [
-          {prop:'id',label:'编号',minWidth:30},
-          {prop:'name',label:'工作名称',minWidth:150},
-          {prop:'type',label:'工作类型',minWidth:70},
-          {prop:'unit',label:'经办单位',minWidth:70},
-          {prop:'condition',label:'当前状态',minWidth:70}
-        ]
-        this.filterColumns = JSON.parse(JSON.stringify(this.columns))
-      }
+        //表格数据初始化
+        getAllWorkData(){
+            this.$api.allword.getAllWorkData()
+                .then(res=>{
+                    if(res.data.code === 200){
+                        console.log(res.data.data);
+                        this.allWorkData = res.data.data;
+                        this.totalPageSize = res.data.data.length
+                    }
+                }).catch(err=>{
+                    console.log(err);
+            })
+        }
+        ,
+        handleSizeChange(val){
+          this.pageSize = val;
+        },
+        handleCurrentChange(val){
+          this.currentPage = val;
+        },
     },
     mounted(){
-      this.initColumns()
+
     }
   }
 </script>

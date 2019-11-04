@@ -36,7 +36,35 @@
         </el-form>
     </div>
     <div class="table">
-      <kt-table :max-height="650" :columns="filterColumns" :data="pageResult"></kt-table>
+<!--      <kt-table :max-height="650" :columns="filterColumns" :data="pageResult"></kt-table>-->
+      <el-table border :data="logData.slice((currentPage-1)*pageSize,currentPage*pageSize)" STYLE="width:100%">
+        <el-table-column type="index" lable="编号" width="70">
+          <template slot-scope="scope">
+            <span>{{(currentPage - 1 )*pageSize + scope.$index + 1}}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="提案标题" prop="proposalTitle"></el-table-column>
+        <el-table-column lable="办理时间" prop="handleTime"></el-table-column>
+        <el-tabel-column lable="经办单位" prop="proposalUnit"></el-tabel-column>
+        <el-table-column lable="经办人" prop="proposalAgent"></el-table-column>
+        <el-table-column lable="办理结果" prop="proposalResult"></el-table-column>
+        <el-table-column lable="联系方式" prop="contact"></el-table-column>
+        <el-table-column lable="操作">
+          <template slot-scope="scope">
+            <el-button type="text" size="small">查看</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totalPageSize">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -56,27 +84,34 @@
           year:'',
           search:''
         },
-        columns:[],
-        pageResult:{},
-        filterColumns:[]
+        logData:[],
+        totalPageSize:40,//数据总条数
+        pageSize: 10,//每页显示数量
+        pageNum: 1,//
+        currentPage:1//页码
       }
     },
     methods:{
-       initColumns(){
-        this.columns = [
-          {prop:'id',label:'编号',minWidth:30},
-          {prop:'title',label:'提案标题',minWidth:150},
-          {prop:'time',label:'办理时间',minWidth:70},
-          {prop:'unit',label:'经办单位',minWidth:70},
-          {prop:'agent',label:'经办人',minWidth:70},
-          {prop:'result',label:'办理结果',minWidth:70},
-          {prop:'mobile',label:'联系方式',minWidth:70}
-        ]
-        this.filterColumns = JSON.parse(JSON.stringify(this.columns))
-      }
+        //页面数据初始化
+        getLogData(){
+          this.$api.log.getLogData()
+              .then(res=>{
+                  if(res.data.code === 200) {
+                      this.logData = res.data.data
+                      this.totalPageSize = res.data.data.length
+                  }
+              })
+        },
+        handleSizeChange(val){
+            this.pageSize = val
+        },
+        handleCurrentChange(val) {
+            this.currentPage = val
+        }
+
     },
     mounted(){
-      this.initColumns()
+
     }
   }
 </script>

@@ -32,7 +32,7 @@
         <div class="proposalList">
         <div class="titleTool">
           <div>审核通过列表</div>
-          <div  style="padding-right: 15px;"><el-button type="primary">提交</el-button></div>
+          <div  style="padding-right: 15px;"><el-button type="primary" @click="toNumberProposal">提交</el-button></div>
         </div>
         <div class="listContent">
           <div class="proType"  v-for="(item,indexi) in data" :key="item.name" >
@@ -261,6 +261,11 @@
             //跳转到提案内容详情页面
             toPrco(id){
                 this.$router.push('/proposalContent')
+            },
+            //合并完成，前往提案标号页面
+            toNumberProposal(){
+                this.$router.push('/proposalNumber')
+
             },
             //移除合并区域提案
             leaveMerge(index,list){
