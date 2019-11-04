@@ -106,3 +106,10 @@ export const editBureau = data =>{
         data
     })
 }
+//获取所有部门列表
+export const getAllDept = () => {
+  return axios({
+    url: '/apis/admin/dept/room/r',
+    method: 'get'
+  })
+}

@@ -72,6 +72,7 @@ router.beforeEach((to, from, next) => {
       next(`/login?redirect=${to.path}`)
     }
   }
+  
   // if(to.path === '/login'){
   //   if(token){
   //     next()
@@ -146,7 +147,7 @@ function addDynamicRoutes (menuList = [], routes = []) {
           // 如url="sys/user"，则组件路径应是"@/views/sys/user.vue",否则组件加载不到
           let array = menuList[i].url.split('/')
           let url = array[0].substring(0,1).toUpperCase()+array[0].substring(1) + '/' + array[1].substring(0,1).toUpperCase()+array[1]  .substring(1)
-          console.log('路由地址',url)
+          // console.log('路由地址',url)
           route['component'] = resolve => require([`@/views/${url}`], resolve)
         } catch (e) {}
       }
@@ -157,11 +158,10 @@ function addDynamicRoutes (menuList = [], routes = []) {
     addDynamicRoutes(temp, routes)
   } else {
     console.log('动态路由加载...')
-    console.log(routes)
+    // console.log(routes)
     console.log('动态路由加载完成.')
   }
   return routes
  }
 
 export default router
-

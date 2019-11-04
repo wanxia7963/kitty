@@ -29,7 +29,7 @@ export const getRoleData = (pageNum,pageSize)=>{
 //编辑角色信息
 export const editRole = data =>{
   return axios({
-    url:'',
+    url:'/apis/admin/role/u',
     method:'post',
     data
   })
@@ -37,29 +37,29 @@ export const editRole = data =>{
 //添加角色
 export const addRole = data=>{
   return axios({
-    url:'',
+    url:'/apis/admin/role/c',
     method:'post',
     data
   })
 };
 //删除角色
-export const deleteRole =(id)=>{
+export const deleteRole = (id)=>{
   return axios({
-    url:'',
+    url:'/apis/admin/role/d?roleId='+id,
     method:'get'
   })
 };
 //根据名称搜索角色
 export const serchRole = (name)=>{
   return axios({
-    url:'',
+    url:'/apis/admin/role/like/r?name='+name,
     method:'get'
   })
 };
 //赋予角色权限接口
 export const setRolePermissions = data=>{
   return axios({
-    url:'',
+    url:'/apis/admin/bind/role/perm',
     method:'post',
     data
   })

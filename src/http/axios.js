@@ -69,13 +69,13 @@ export default function $axios(options) {
               router.push({path:'/login'})
             })
         }
-        if (status !== 200) {
-          Message({
-            message: message,
-            type: 'error'
-          })
-          return Promise.reject(new Error(message))
-        }
+        // if (status !== 200) {
+        //   // Message({
+        //   //   message: message,
+        //   //   type: 'error'
+        //   // })
+        //   return Promise.reject(new Error(message))
+        // }
         return  response;
       }, error => {
         NProgress.done();

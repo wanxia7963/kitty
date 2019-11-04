@@ -43,6 +43,7 @@ import * as dept from './moudules/dept.js'
 import * as role from './moudules/role.js'
 import * as proposal from './moudules/proposal.js'
 import * as common from './moudules/common.js'
+import * as statistics from './moudules/statistics.js'
 
 // 默认全部导出
 export default {
@@ -52,5 +53,6 @@ export default {
     dept,
     proposal,
     role,
-    common
+    common,
+    statistics
 }
